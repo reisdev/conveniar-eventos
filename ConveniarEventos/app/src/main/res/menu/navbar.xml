@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Inicial"
+        android:icon="@drawable/home"
+        android:font="@font/font_awesome_5_regular"
+        />
+    <item
+        android:title="Favoritos"
+        android:font="@font/font_awesome_5_regular"
+        android:icon="@drawable/heart"
+        />
+    <item
+        android:title="Inscrições"
+        android:font="@font/font_awesome_5_regular"
+        android:icon="@drawable/file_signature"
+        />
+    <item
+        android:title="Perfil"
+        android:font="@font/font_awesome_5_regular"
+        android:icon="@drawable/user"
+        />
+</menu>
