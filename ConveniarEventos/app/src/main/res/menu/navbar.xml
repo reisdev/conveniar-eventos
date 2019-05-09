@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/frag_inicial"
+        android:title="Inicial"
+        android:icon="@drawable/home"
+        />
+    <item
+        android:id="@+id/frag_fav"
+        android:title="Favoritos"
+        android:icon="@drawable/heart"
+        />
+    <item
+        android:id="@+id/frag_ins"
+        android:title="Inscrições"
+        android:icon="@drawable/file_signature"
+        />
+    <item
+        android:id="@+id/frag_perfil"
+        android:title="Perfil"
+        android:icon="@drawable/user"
+        />
+</menu>
