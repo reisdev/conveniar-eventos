@@ -40,11 +40,12 @@ public class foundation extends AppCompatActivity {
                 String [] foundations = new String[response.length()];
                 FoundationsList.setMinValue(0);
                 FoundationsList.setMaxValue(response.length()-1);
-                for (int i = 0; i < response.length(); i++){
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject fnd = response.getJSONObject(i);
-                        String [] parts = fnd.get("Name").toString().split(" ");
-                    } catch(JSONException e){
+                        String[] parts = fnd.get("Name").toString().split(" ");
+                        foundations[i] = parts[0];
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
