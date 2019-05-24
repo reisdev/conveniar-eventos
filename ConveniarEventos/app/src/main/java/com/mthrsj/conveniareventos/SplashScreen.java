@@ -8,6 +8,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -23,6 +25,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -41,17 +48,12 @@ public class SplashScreen extends AppCompatActivity {
             Log.d("PRM","Internet Permission granted");
         }
 
-        getFoundationsList();
-
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent it = new Intent(SplashScreen.this, foundation.class);
-                startActivity(it);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
-        */
+        if(isOnline()){
+            getFoundationsList();
+        } else {
+            Log.e("NET", "Não esta connectado com a internet!");
+            //DISPARAR ALERTA
+        }
     }
 
     public void getFoundationsList() {
@@ -88,4 +90,14 @@ public class SplashScreen extends AppCompatActivity {
         startActivity(it);
         finish();
     }
+
+    public boolean isOnline() {
+
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = ((activeNetwork != null) && activeNetwork.isConnectedOrConnecting());
+
+        return isConnected;
+    }
+
 }
