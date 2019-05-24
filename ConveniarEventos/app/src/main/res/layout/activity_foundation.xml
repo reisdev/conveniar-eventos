@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".foundation"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/layout_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/conveniar_logo" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_toRightOf="@id/logo"
+            android:src="@drawable/conveniar_text" />
+    </RelativeLayout>
+
+    <NumberPicker
+        android:id="@+id/foundation_picker"
+        android:layout_width="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/layout_logo"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:theme="@style/AppTheme"
+        />
+
+</RelativeLayout>
