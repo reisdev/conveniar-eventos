@@ -2,6 +2,7 @@ package com.mthrsj.conveniareventos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.NumberPicker;
@@ -26,38 +27,14 @@ public class foundation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foundation);
-        getFoundationsList();
+
+        Intent it = getIntent();
+        final NumberPicker FoundationsList = (NumberPicker) findViewById(R.id.foundation_picker);
+        String[] foundations = it.getStringArrayExtra("foundation_bundle");
+        FoundationsList.setMinValue(0);
+        FoundationsList.setMaxValue(foundations.length-1);
+        FoundationsList.setDisplayedValues(foundations);
+
     }
 
-    public String getFoundationsList() {
-        RequestQueue queue = Volley.newRequestQueue(foundation.this);
-        String url = "https://servicos.conveniar.com.br/adminservico/api/fundacoes";
-        final NumberPicker FoundationsList = (NumberPicker) findViewById(R.id.foundation_picker);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d("REQ", response.toString());
-                String [] foundations = new String[response.length()];
-                FoundationsList.setMinValue(0);
-                FoundationsList.setMaxValue(response.length()-1);
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject fnd = response.getJSONObject(i);
-                        String[] parts = fnd.get("Name").toString().split(" ");
-                        foundations[i] = parts[0];
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                FoundationsList.setDisplayedValues(foundations);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERR", error.getLocalizedMessage());
-            }
-        });
-        queue.add(request);
-        return "";
-    }
 }
