@@ -24,6 +24,7 @@
 
     <style name="NumberPickerText">
         <item name="android:textSize">40sp</item>
+        <item name="android:colorControlNormal">@color/white</item>
     </style>
 
 

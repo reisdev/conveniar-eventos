@@ -2,8 +2,10 @@ package com.mthrsj.conveniareventos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.NumberPicker;
 
@@ -34,7 +36,8 @@ public class foundation extends AppCompatActivity {
         FoundationsList.setMinValue(0);
         FoundationsList.setMaxValue(foundations.length-1);
         FoundationsList.setDisplayedValues(foundations);
-
     }
+
+
 
 }
