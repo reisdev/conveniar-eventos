@@ -30,17 +30,11 @@
 
     <NumberPicker
         android:id="@+id/foundation_picker"
-        android:layout_width="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_height="200dp"
+        android:layout_width="326dp"
+        android:layout_height="429dp"
         android:layout_below="@id/layout_logo"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:layout_centerVertical="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="80dp"
-        android:theme="@style/AppTheme"
-        />
+        android:layout_marginTop="29dp"
+        android:theme="@style/NumberPickerText" />
 
 </RelativeLayout>

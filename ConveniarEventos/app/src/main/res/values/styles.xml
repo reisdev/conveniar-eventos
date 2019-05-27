@@ -22,5 +22,9 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="NumberPickerText">
+        <item name="android:textSize">40sp</item>
+    </style>
+
 
 </resources>

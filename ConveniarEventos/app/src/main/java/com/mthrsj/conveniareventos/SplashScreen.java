@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,30 +34,38 @@ import java.net.SocketAddress;
 
 public class SplashScreen extends AppCompatActivity {
 
+    private int progressStatus = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
             Log.d("PRM","Permission not granted");
             /* Permission is not granted */
             ActivityCompat.requestPermissions(SplashScreen.this,new String[] {Manifest.permission.INTERNET},1);
+            progressStatus+=33;
+            pb.setProgress(progressStatus);
         }
         else {
             Log.d("PRM","Internet Permission granted");
         }
 
         if(isOnline()){
-            getFoundationsList();
+            progressStatus+=33;
+            pb.setProgress(progressStatus);
+            getFoundationsList(pb);
         } else {
             Log.e("NET", "Não esta connectado com a internet!");
             //DISPARAR ALERTA
         }
     }
 
-    public void getFoundationsList() {
+    public void getFoundationsList(final ProgressBar pb) {
         RequestQueue queue = Volley.newRequestQueue(SplashScreen.this);
         String url = "https://servicos.conveniar.com.br/adminservico/api/fundacoes";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -73,6 +82,8 @@ public class SplashScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                progressStatus+=33;
+                pb.setProgress(progressStatus);
                 goToFoundationView(foundations);
             }
         }, new Response.ErrorListener() {
