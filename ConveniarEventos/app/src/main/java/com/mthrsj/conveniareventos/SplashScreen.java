@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.mthrsj.conveniareventos.models.Foundation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -45,18 +51,17 @@ public class SplashScreen extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
-            Log.d("PRM","Permission not granted");
+            Log.d("PRM", "Permission not granted");
             /* Permission is not granted */
-            ActivityCompat.requestPermissions(SplashScreen.this,new String[] {Manifest.permission.INTERNET},1);
-            progressStatus+=33;
+            ActivityCompat.requestPermissions(SplashScreen.this, new String[]{Manifest.permission.INTERNET}, 1);
+            progressStatus += 33;
             pb.setProgress(progressStatus);
-        }
-        else {
-            Log.d("PRM","Internet Permission granted");
+        } else {
+            Log.d("PRM", "Internet Permission granted");
         }
 
-        if(isOnline()){
-            progressStatus+=33;
+        if (isOnline()) {
+            progressStatus += 33;
             pb.setProgress(progressStatus);
             getFoundationsList(pb);
         } else {
@@ -66,37 +71,31 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void getFoundationsList(final ProgressBar pb) {
-        RequestQueue queue = Volley.newRequestQueue(SplashScreen.this);
-        String url = "https://servicos.conveniar.com.br/adminservico/api/fundacoes";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
+        Call<List<Foundation>> allFoundation = apiService.getFoundations();
+
+        allFoundation.enqueue(new Callback<List<Foundation>>() {
             @Override
-            public void onResponse(JSONArray response) {
-                Log.d("REQ", response.toString());
-                String[] foundations = new String[response.length()];
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject fnd = response.getJSONObject(i);
-                        String[] parts = fnd.get("Name").toString().split("\\s*([-]|[|])");
-                        foundations[i] = parts[0];
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            public void onResponse(Call<List<Foundation>> call, retrofit2.Response<List<Foundation>> response) {
+                if (response.isSuccessful()) {
+                    goToFoundationView(response.body());
                 }
-                progressStatus+=33;
-                pb.setProgress(progressStatus);
-                goToFoundationView(foundations);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERR", error.getLocalizedMessage());
+            public void onFailure(Call<List<Foundation>> call, Throwable t) {
+                    Log.e("REQ","Cannot get foundations list");
             }
         });
-        queue.add(request);
+
     }
 
-    public void goToFoundationView(String[] foundations){
+    public void goToFoundationView(List<Foundation> response) {
         Intent it = new Intent(SplashScreen.this, foundation.class);
+        String[] foundations = new String[response.size()];
+        for (int i = 0; i < response.size(); i++) {
+            foundations[i] = response.get(i).Name.split("\\s*([-]|[|])")[0];
+        }
         it.putExtra("foundation_bundle", foundations);
         startActivity(it);
         finish();

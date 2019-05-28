@@ -21,8 +21,6 @@ public class FoundationPicker extends ListView {
         FoundationsList.measure(0, 0);
 
         final int height = (FoundationsList.getMeasuredHeight() / 2);
-        Log.i("LST", Integer.toString(height));
-
 
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         FoundationsList.post(new Runnable() {
