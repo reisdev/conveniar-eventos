@@ -47,7 +47,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
+        final ProgressBar pb = findViewById(R.id.progressBar);
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -102,7 +102,6 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public boolean isOnline() {
-
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = ((activeNetwork != null) && activeNetwork.isConnectedOrConnecting());
