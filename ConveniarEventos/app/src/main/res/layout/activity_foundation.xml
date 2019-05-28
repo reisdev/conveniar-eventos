@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -29,13 +29,23 @@
             android:src="@drawable/conveniar_text" />
     </RelativeLayout>
 
-    <NumberPicker
-        android:id="@+id/foundation_picker"
-        android:layout_width="277dp"
-        android:layout_height="216dp"
-        android:layout_centerVertical="true"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/layout_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="266dp"
-        android:theme="@style/NumberPickerText" />
-
+        android:layout_centerVertical="true">
+            <com.mthrsj.conveniareventos.FoundationPicker
+                android:id="@+id/FoundationList"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:scrollbars="none"
+                android:minHeight="400dp"
+                android:textAlignment="center"
+                android:requiresFadingEdge="vertical"
+                android:fadingEdgeLength="48dp"
+                ></com.mthrsj.conveniareventos.FoundationPicker>
+    </LinearLayout>
 </RelativeLayout>

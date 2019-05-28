@@ -76,7 +76,7 @@ public class SplashScreen extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject fnd = response.getJSONObject(i);
-                        String[] parts = fnd.get("Name").toString().split(" ");
+                        String[] parts = fnd.get("Name").toString().split("\\s*([-]|[|])");
                         foundations[i] = parts[0];
                     } catch (JSONException e) {
                         e.printStackTrace();
