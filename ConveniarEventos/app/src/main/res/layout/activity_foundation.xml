@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     tools:context=".foundation"
-
+    android:layout_centerHorizontal="true"
     >
     <RelativeLayout
         android:id="@+id/layout_logo"
@@ -13,39 +13,43 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp">
-
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="100dp"
             android:src="@drawable/conveniar_logo"
-            android:contentDescription="Application logo"/>
-
+            android:contentDescription="Application logo"
+            android:layout_marginLeft="15dp"
+            />
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="260dp"
             android:layout_height="100dp"
             android:layout_toEndOf="@id/logo"
             android:src="@drawable/conveniar_text"
             android:contentDescription="Application name"/>
     </RelativeLayout>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_logo">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/layout_logo"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        >0
             <com.mthrsj.conveniareventos.FoundationPicker
                 android:id="@+id/FoundationList"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:divider="@null"
+                android:layout_centerInParent="true"
                 android:dividerHeight="0dp"
                 android:scrollbars="none"
-                android:minHeight="400dp"
                 android:textAlignment="center"
                 android:requiresFadingEdge="vertical"
-                android:fadingEdgeLength="48dp"
+                android:fadingEdgeLength="55dp"
                 />
     </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

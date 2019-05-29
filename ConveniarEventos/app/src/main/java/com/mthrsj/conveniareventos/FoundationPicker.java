@@ -19,14 +19,11 @@ public class FoundationPicker extends ListView {
         final ListView FoundationsList = findViewById(R.id.FoundationList);
         FoundationsList.setAdapter(foundations);
         FoundationsList.measure(0, 0);
-
-        final int height = (FoundationsList.getMeasuredHeight() / 2);
-
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         FoundationsList.post(new Runnable() {
             @Override
             public void run() {
-                smoothScrollBy(height + 560, 200);
+                smoothScrollBy((getHeight()/2)+320, 200);
             }
         });
     }
