@@ -15,5 +15,8 @@ public class foundation extends AppCompatActivity {
         String[] aux = it.getStringArrayExtra("foundation_bundle");
         FoundationPicker FndPicker = findViewById(R.id.FoundationList);
         FndPicker.setValues(aux);
+
+        it = new Intent(this, MainActivity.class);
+        startActivity(it);
     }
 }

@@ -79,6 +79,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Foundation>> call, retrofit2.Response<List<Foundation>> response) {
                 if (response.isSuccessful()) {
+                    Log.d("REQ","Request successfull");
                     goToFoundationView(response.body());
                 }
             }
@@ -92,6 +93,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void goToFoundationView(List<Foundation> response) {
+        Log.i("GOTO", "Go to foundations");
         Intent it = new Intent(SplashScreen.this, foundation.class);
         String[] foundations = new String[response.size()];
         for (int i = 0; i < response.size(); i++) {
