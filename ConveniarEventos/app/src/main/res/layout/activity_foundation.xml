@@ -19,7 +19,7 @@
             android:layout_height="100dp"
             android:src="@drawable/conveniar_logo"
             android:contentDescription="Application logo"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             />
         <ImageView
             android:layout_width="260dp"
@@ -37,13 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        >0
+        >
             <com.mthrsj.conveniareventos.FoundationPicker
                 android:id="@+id/FoundationList"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:divider="@null"
-                android:layout_centerInParent="true"
                 android:dividerHeight="0dp"
                 android:scrollbars="none"
                 android:textAlignment="center"
