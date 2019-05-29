@@ -41,13 +41,14 @@ import retrofit2.Callback;
 public class SplashScreen extends AppCompatActivity {
 
     private int progressStatus = 0;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        final ProgressBar pb = findViewById(R.id.progressBar);
+        pb = findViewById(R.id.progressBar);
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -63,14 +64,14 @@ public class SplashScreen extends AppCompatActivity {
         if (isOnline()) {
             progressStatus += 33;
             pb.setProgress(progressStatus);
-            getFoundationsList(pb);
+            getFoundationsList();
         } else {
             Log.e("NET", "Não esta connectado com a internet!");
             //DISPARAR ALERTA
         }
     }
 
-    public void getFoundationsList(final ProgressBar pb) {
+    public void getFoundationsList() {
         ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
         Call<List<Foundation>> allFoundation = apiService.getFoundations();
 
