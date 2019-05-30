@@ -61,6 +61,143 @@ public class inicial_frag extends Fragment {
                 )
         );
 
+        eventList.add(
+          new Event(
+                  2,
+                  "Aula Guitarra",
+                  "Ativo",
+                  "99",
+                  "Curso",
+                  "Aula de guitarra porraaaaaa"
+          )
+        );
+
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
+        eventList.add(
+                new Event(
+                        1,
+                        "Aula Violão",
+                        "Ativo",
+                        "100",
+                        "Evento",
+                        "Curso de violão basico para iniciantes"
+                )
+        );
+
+        eventList.add(
+                new Event(
+                        2,
+                        "Aula Guitarra",
+                        "Ativo",
+                        "99",
+                        "Curso",
+                        "Aula de guitarra porraaaaaa"
+                )
+        );
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
     }

@@ -22,7 +22,7 @@
                 android:background="@color/colorPrimary"
                 android:padding="8dp"
                 android:textStyle="bold"
-                android:text="FACEV"
+                android:text=""
                 android:id="@+id/title"
                 android:textSize="20dp"/>
             <TextView
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="Hoje"
+                android:text=""
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:padding="8dp"
@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="  Curso de Violão Basico."
+                android:text=""
                 android:textSize="16dp"
                 android:textColor="@color/black"
                 android:layout_below="@+id/title"
