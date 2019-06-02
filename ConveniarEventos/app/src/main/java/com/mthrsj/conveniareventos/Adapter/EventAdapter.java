@@ -40,7 +40,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Event event = EventList.get(position);
 
         holder.title.setText(event.getNomeEvento());
-        holder.body.setText(event.getDescEventoInformacao());
+        holder.body.setText(event.getInformacoes().getNomeEventoCategoria());
         holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
     }
 

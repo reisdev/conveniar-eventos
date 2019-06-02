@@ -7,16 +7,14 @@ public class Event implements Serializable {
     protected String NomeEvento;
     protected String StatusEvento;
     protected String NumeroVagas;
-    protected String NomeEventoInformacao;
-    protected String DescEventoInformacao;
+    protected Category informacoes;
 
-    public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, String nomeEventoInformacao, String descEventoInformacao) {
+    public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, Category informacoes) {
         CodEvent = codEvent;
         NomeEvento = nomeEvento;
         StatusEvento = statusEvento;
         NumeroVagas = numeroVagas;
-        NomeEventoInformacao = nomeEventoInformacao;
-        DescEventoInformacao = descEventoInformacao;
+        this.informacoes = informacoes;
     }
 
     public int getCodEvent() {
@@ -35,11 +33,11 @@ public class Event implements Serializable {
         return NumeroVagas;
     }
 
-    public String getNomeEventoInformacao() {
-        return NomeEventoInformacao;
+    public Category getInformacoes() {
+        return informacoes;
     }
 
-    public String getDescEventoInformacao() {
-        return DescEventoInformacao;
+    public void setInformacoes(Category informacoes) {
+        this.informacoes = informacoes;
     }
 }

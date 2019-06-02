@@ -14,10 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
+import com.mthrsj.conveniareventos.models.Category;
 import com.mthrsj.conveniareventos.models.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class inicial_frag extends Fragment {
 
@@ -58,144 +63,6 @@ public class inicial_frag extends Fragment {
                         "100",
                         "Evento",
                         "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-          new Event(
-                  2,
-                  "Aula Guitarra",
-                  "Ativo",
-                  "99",
-                  "Curso",
-                  "Aula de guitarra porraaaaaa"
-          )
-        );
-
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
-                )
-        );
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
-                )
-        );
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
-                )
-        );
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
-                )
-        );
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
-                )
-        );
-        eventList.add(
-                new Event(
-                        1,
-                        "Aula Violão",
-                        "Ativo",
-                        "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
-                )
-        );
-
-        eventList.add(
-                new Event(
-                        2,
-                        "Aula Guitarra",
-                        "Ativo",
-                        "99",
-                        "Curso",
-                        "Aula de guitarra porraaaaaa"
                 )
         );
         adapter = new EventAdapter(this.getContext(), eventList);
