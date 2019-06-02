@@ -55,14 +55,14 @@ public class inicial_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //ADICIONANDO ITENS PARA O EVENT LIST (MANUALMENTE PARA VISUALIZACAO)
+        Category cat = new Category(1, "paçoca");
         eventList.add(
                 new Event(
                         1,
                         "Aula Violão",
                         "Ativo",
                         "100",
-                        "Evento",
-                        "Curso de violão basico para iniciantes"
+                        cat
                 )
         );
         adapter = new EventAdapter(this.getContext(), eventList);

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.mthrsj.conveniareventos.models.Category;
 
@@ -14,17 +16,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class foundation extends AppCompatActivity {
+
+    String[] aux;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foundation);
 
         Intent it = getIntent();
-        String[] aux = it.getStringArrayExtra("foundation_bundle");
-        FoundationPicker FndPicker = findViewById(R.id.FoundationList);
+        aux = it.getStringArrayExtra("foundation_bundle");
+        final FoundationPicker FndPicker = findViewById(R.id.FoundationList);
         FndPicker.setValues(aux);
 
+        FndPicker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("ITEM", Integer.toString(position) + " " + aux[position]);
+                getApiRequest(aux[position]);
+            }
+        });
+    }
 
+    public void getApiRequest(final String fnd){
         //TODO: A partir da fundacao selecionada mudar o link da api a baixo
         /*ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
         Call<List<Category>> allCategory = apiService.getCategories();
