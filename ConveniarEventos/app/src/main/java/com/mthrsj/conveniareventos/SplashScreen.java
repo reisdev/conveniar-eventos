@@ -97,7 +97,7 @@ public class SplashScreen extends AppCompatActivity {
         Intent it = new Intent(SplashScreen.this, foundation.class);
         String[] foundations = new String[response.size()];
         for (int i = 0; i < response.size(); i++) {
-            foundations[i] = response.get(i).Name.split("\\s*([-]|[|])")[0];
+            foundations[i] = response.get(i).getName().split("\\s*([-]|[|])")[0];
         }
         it.putExtra("foundation_bundle", foundations);
         startActivity(it);

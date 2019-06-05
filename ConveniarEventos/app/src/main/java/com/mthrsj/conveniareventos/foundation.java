@@ -40,30 +40,28 @@ public class foundation extends AppCompatActivity {
 
     public void getApiRequest(final String fnd){
         //TODO: A partir da fundacao selecionada mudar o link da api a baixo
-        /*ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
+        ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
         Call<List<Category>> allCategory = apiService.getCategories();
         allCategory.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, retrofit2.Response<List<Category>> response) {
                 if(response.isSuccessful()){
-                    Log.d("REQ", "Request of categories is successfull");
                     getCategory(response.body());
                 } else {
-                    Log.e("REQ", "Request of categories failed");
+                    Log.e("REQ", "Request of categories failed:" + response.raw().body());
                 }
             }
-
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
                 Log.e("REQ", "Could not connect to API");
             }
-        });*/
+        });
     }
 
-    /*public void getCategory(List<Category> response){
+    public void getCategory(List<Category> response){
         String[] categories = new String[response.size()];
         for(int i =0; i<response.size(); i++){
-            Log.e("RESP", response.get(i).getNomeEventoCategoria());
+            // response.get(i).getNomeEventoCategoria();
         }
-    }*/
+    }
 }
