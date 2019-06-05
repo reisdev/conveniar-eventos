@@ -17,6 +17,14 @@ public class Event implements Serializable {
         this.informacoes = informacoes;
     }
 
+    public Event(Event e){
+        CodEvent = e.CodEvent;
+        NomeEvento = e.NomeEvento;
+        StatusEvento = e.StatusEvento;
+        NumeroVagas = e.NumeroVagas;
+        this.informacoes = e.informacoes;
+    }
+
     public int getCodEvent() {
         return CodEvent;
     }

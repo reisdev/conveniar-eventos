@@ -96,10 +96,13 @@ public class SplashScreen extends AppCompatActivity {
         Log.i("GOTO", "Go to foundations");
         Intent it = new Intent(SplashScreen.this, foundation.class);
         String[] foundations = new String[response.size()];
+        String[] domain = new String[response.size()];
         for (int i = 0; i < response.size(); i++) {
             foundations[i] = response.get(i).getName().split("\\s*([-]|[|])")[0];
+            domain[i] = response.get(i).getDomain();
         }
-        it.putExtra("foundation_bundle", foundations);
+        it.putExtra("foundation_name", foundations);
+        it.putExtra("foundation_domain", domain);
         startActivity(it);
         finish();
     }

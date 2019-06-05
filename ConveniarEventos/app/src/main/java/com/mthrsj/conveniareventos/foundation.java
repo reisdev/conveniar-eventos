@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.mthrsj.conveniareventos.models.Category;
+import com.mthrsj.conveniareventos.models.Foundation;
 
 import java.util.List;
 
@@ -18,51 +19,31 @@ import retrofit2.Callback;
 public class foundation extends AppCompatActivity {
 
     String[] aux;
+    String[] domain;
+    Intent it;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foundation);
 
-        Intent it = getIntent();
-        aux = it.getStringArrayExtra("foundation_bundle");
+        it = getIntent();
+        aux = it.getStringArrayExtra("foundation_name");
+        domain = it.getStringArrayExtra("foundation_domain");
         final FoundationPicker FndPicker = findViewById(R.id.FoundationList);
         FndPicker.setValues(aux);
 
         FndPicker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("ITEM", Integer.toString(position) + " " + aux[position]);
-                getApiRequest(aux[position]);
+                it = new Intent(foundation.this, MainActivity.class);
+                Bundle bd = new Bundle();
+                Foundation f = new Foundation(aux[position], domain[position]);
+                bd.putSerializable("foundation", f);
+                it.putExtras(bd);
+                Log.d("FND", aux[position] + ": " + domain[position]);
+                startActivity(it);
             }
         });
-    }
-
-    public void getApiRequest(final String fnd){
-        //TODO: A partir da fundacao selecionada mudar o link da api a baixo
-        ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
-        Call<List<Category>> allCategory = apiService.getCategories();
-        allCategory.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, retrofit2.Response<List<Category>> response) {
-                if(response.isSuccessful()){
-                    getCategory(response.body());
-                } else {
-                    Log.e("REQ", "Request of categories failed:" + response.raw().body());
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                Log.e("REQ", "Could not connect to API");
-            }
-        });
-        ConveniarAPI.closeClient();
-    }
-
-    public void getCategory(List<Category> response){
-        String[] categories = new String[response.size()];
-        for(int i =0; i<response.size(); i++){
-            // response.get(i).getNomeEventoCategoria();
-        }
     }
 }
