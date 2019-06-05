@@ -89,7 +89,7 @@ public class SplashScreen extends AppCompatActivity {
                     Log.e("REQ","Cannot get foundations list");
             }
         });
-
+        ConveniarAPI.closeClient();
     }
 
     public void goToFoundationView(List<Foundation> response) {

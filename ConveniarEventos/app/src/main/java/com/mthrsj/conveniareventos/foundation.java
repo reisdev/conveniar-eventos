@@ -56,6 +56,7 @@ public class foundation extends AppCompatActivity {
                 Log.e("REQ", "Could not connect to API");
             }
         });
+        ConveniarAPI.closeClient();
     }
 
     public void getCategory(List<Category> response){
