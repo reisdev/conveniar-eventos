@@ -2,7 +2,6 @@ package com.mthrsj.conveniareventos.Adapter;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mthrsj.conveniareventos.R;
-import com.mthrsj.conveniareventos.models.Event;
+import com.mthrsj.conveniareventos.Utils.API.models.Event;
 
 import java.util.List;
 
@@ -41,9 +40,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         if (EventList.size() > 0) {
             Event event = EventList.get(position);
             holder.title.setText(event.getNomeEvento());
-            String body = new String();
+            String body = "";
             for( int i = 0; i <event.getInformacoes().size(); i++){
-                body += event.getInformacoes().get(i).getNomeEventoInformacao() + "\n";
+                body.concat(event.getInformacoes().get(i).getNomeEventoInformacao() + "\n");
             }
             holder.body.setText(body);
             holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
@@ -60,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView title, date, body;
         ImageButton bshare;
 
-        public EventViewHolder(@NonNull View itemView) {
+        private EventViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);

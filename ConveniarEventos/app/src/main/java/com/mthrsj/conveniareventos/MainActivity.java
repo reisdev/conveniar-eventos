@@ -1,20 +1,21 @@
 package com.mthrsj.conveniareventos;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.ProgressBar;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mthrsj.conveniareventos.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.Database.Database;
+import com.mthrsj.conveniareventos.Utils.Database.Models.Config;
 
-import java.io.InterruptedIOException;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFrag = null;
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.frag_inicial:
                         selectedFrag = inicial_frag.newInstance(foundation);
                         break;
@@ -62,5 +63,22 @@ public class MainActivity extends AppCompatActivity {
         frag.setArguments(extras);
         transaction.replace(R.id.frame_layout, frag.newInstance(foundation));
         transaction.commit();
+        testRealm(foundation);
+    }
+
+    public void testRealm(Foundation fnd) {
+        Realm db = Database.getInstance();
+        db.beginTransaction();
+        Config actualFoundation = db.createObject(Config.class);
+        actualFoundation.setName("foundation");
+        actualFoundation.setValue(fnd.getDomain());
+        final Config managedConfig = db.copyFromRealm(actualFoundation);
+        db.commitTransaction();
+        Log.d("DB", "Created config for foundation");
+
+        db.beginTransaction();
+        boolean result = db.where(Config.class).equalTo("name", "foundation").findAll().deleteFirstFromRealm();
+        db.commitTransaction();
+        Log.d("DB", "Deleted config for foundation: " + result);
     }
 }

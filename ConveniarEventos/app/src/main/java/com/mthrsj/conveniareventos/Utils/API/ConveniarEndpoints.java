@@ -1,8 +1,8 @@
-package com.mthrsj.conveniareventos;
+package com.mthrsj.conveniareventos.Utils.API;
 
-import com.mthrsj.conveniareventos.models.Category;
-import com.mthrsj.conveniareventos.models.Event;
-import com.mthrsj.conveniareventos.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.Category;
+import com.mthrsj.conveniareventos.Utils.API.models.Event;
+import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 
 import java.util.List;
 

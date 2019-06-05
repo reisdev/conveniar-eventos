@@ -1,8 +1,8 @@
-package com.mthrsj.conveniareventos.models;
+package com.mthrsj.conveniareventos.Utils.API.models;
 
 public class Auth {
-    protected String AccessToken;
-    protected long Expires;
+    private String AccessToken;
+    private long Expires;
 
     public Auth(String accessToken, long expires) {
         AccessToken = accessToken;

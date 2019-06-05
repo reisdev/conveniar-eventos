@@ -11,30 +11,18 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.mthrsj.conveniareventos.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
+import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.Database.Database;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -49,6 +37,9 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         pb = findViewById(R.id.progressBar);
+        pb.setMax(100);
+
+        configureRealm();
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -56,6 +47,8 @@ public class SplashScreen extends AppCompatActivity {
             /* Permission is not granted */
             ActivityCompat.requestPermissions(SplashScreen.this, new String[]{Manifest.permission.INTERNET}, 1);
             progressStatus += 33;
+            pb.setProgress(0);
+            pb.setMax(100);
             pb.setProgress(progressStatus);
         } else {
             Log.d("PRM", "Internet Permission granted");
@@ -63,6 +56,9 @@ public class SplashScreen extends AppCompatActivity {
 
         if (isOnline()) {
             progressStatus += 33;
+            Log.d("CON","Is online!");
+            pb.setProgress(0);
+            pb.setMax(100);
             pb.setProgress(progressStatus);
             getFoundationsList();
         } else {
@@ -70,6 +66,15 @@ public class SplashScreen extends AppCompatActivity {
             //DISPARAR ALERTA
         }
     }
+    public void configureRealm(){
+        Realm.init(this.getApplicationContext());
+        RealmConfiguration config = new RealmConfiguration.Builder().name("conveniar-eventos.realm").build();
+        Database db = new Database();
+        db.getInstance().setDefaultConfiguration(config);
+        progressStatus += 34;
+    }
+
+
 
     public void getFoundationsList() {
         ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
@@ -79,7 +84,11 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Foundation>> call, retrofit2.Response<List<Foundation>> response) {
                 if (response.isSuccessful()) {
-                    Log.d("REQ","Request successfull");
+                    progressStatus += 33;
+                    Log.d("CON","Is online!");
+                    pb.setProgress(0);
+                    pb.setMax(100);
+                    pb.setProgress(progressStatus);
                     goToFoundationView(response.body());
                 }
             }
@@ -110,9 +119,6 @@ public class SplashScreen extends AppCompatActivity {
     public boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = ((activeNetwork != null) && activeNetwork.isConnectedOrConnecting());
-
-        return isConnected;
+        return ((activeNetwork != null) && activeNetwork.isConnectedOrConnecting());
     }
-
 }

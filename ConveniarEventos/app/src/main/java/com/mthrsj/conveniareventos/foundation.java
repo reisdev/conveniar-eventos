@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.mthrsj.conveniareventos.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 
 public class foundation extends AppCompatActivity {
 

@@ -1,23 +1,21 @@
-package com.mthrsj.conveniareventos.models;
+package com.mthrsj.conveniareventos.Utils.API.models;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class Event implements Serializable {
-    protected int CodEvent;
-    protected String NomeEvento;
-    protected String StatusEvento;
-    protected String NumeroVagas;
-    protected List<Informacoes> Informacoes;
+    private int CodEvent;
+    private String NomeEvento;
+    private String StatusEvento;
+    private String NumeroVagas;
+    private List<Informacoes> Informacoes;
 
     public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, List<Informacoes> informacoes) {
         CodEvent = codEvent;
         NomeEvento = nomeEvento;
         StatusEvento = statusEvento;
         NumeroVagas = numeroVagas;
-        for(int i = 0; i < informacoes.size(); i++){
-            Informacoes.add(informacoes.get(i));
-        }
+        Informacoes.addAll(informacoes);
     }
 
     public Event(Event e){

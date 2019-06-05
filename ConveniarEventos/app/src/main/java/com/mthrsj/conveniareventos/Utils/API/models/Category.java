@@ -1,11 +1,11 @@
-package com.mthrsj.conveniareventos.models;
+package com.mthrsj.conveniareventos.Utils.API.models;
 
 import java.io.Serializable;
 
 public class Category implements Serializable {
 
-    protected int CodEventoCategoria;
-    protected String NomeEventoCategoria;
+    private int CodEventoCategoria;
+    private String NomeEventoCategoria;
 
     public Category(int cod, String nome) {
         CodEventoCategoria = cod;

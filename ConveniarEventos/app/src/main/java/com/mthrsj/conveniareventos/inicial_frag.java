@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
-import com.mthrsj.conveniareventos.models.Category;
-import com.mthrsj.conveniareventos.models.Event;
-import com.mthrsj.conveniareventos.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
+import com.mthrsj.conveniareventos.Utils.API.models.Category;
+import com.mthrsj.conveniareventos.Utils.API.models.Event;
+import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,7 @@ public class inicial_frag extends Fragment {
 
     public static inicial_frag newInstance(final Foundation f) {
         fnd = new Foundation(f);
-        inicial_frag fragment = new inicial_frag();
-        return fragment;
+        return new inicial_frag();
     }
 
     @Override
@@ -59,12 +60,12 @@ public class inicial_frag extends Fragment {
         updateEventsList();
     }
 
-    public void updateEventsList() {
+    private void updateEventsList() {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
     }
 
-    public void getApiRequestCategories(final String domain) {
+    private void getApiRequestCategories(final String domain) {
         String url = domain + "/api/";
         //TODO: trocar o api_url para o url recebido de dominio, qnd o acesso for liberado
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
@@ -87,7 +88,7 @@ public class inicial_frag extends Fragment {
         ConveniarAPI.closeClient();
     }
 
-    public void getEventByCategory(List<Category> categoriesRes) {
+    private void getEventByCategory(List<Category> categoriesRes) {
         String[] categories = new String[categoriesRes.size()];
         for (int i = 0; i < categoriesRes.size(); i++) {
             //TODO: trocar o api_url para o url recebido de dominio, qnd o acesso for liberado

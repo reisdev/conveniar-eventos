@@ -1,4 +1,4 @@
-package com.mthrsj.conveniareventos.models;
+package com.mthrsj.conveniareventos.Utils.API.models;
 
 import java.io.Serializable;
 

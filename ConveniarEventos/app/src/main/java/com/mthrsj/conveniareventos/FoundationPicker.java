@@ -11,7 +11,7 @@ public class FoundationPicker extends ListView {
     FoundationPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    public void setValues(final String[] values) {
+    public void setValues(final Object[] values) {
         foundations.addAll(values);
         final ListView FoundationsList = findViewById(R.id.FoundationList);
         FoundationsList.setAdapter(foundations);

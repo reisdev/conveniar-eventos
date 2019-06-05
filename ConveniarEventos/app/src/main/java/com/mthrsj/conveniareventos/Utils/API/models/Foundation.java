@@ -1,13 +1,12 @@
-package com.mthrsj.conveniareventos.models;
+package com.mthrsj.conveniareventos.Utils.API.models;
 
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 public class Foundation implements Serializable {
-    protected String Name;
-    protected String Domain;
+    private String Name;
+    private String Domain;
 
     public Foundation(Foundation f) {
         Name = f.getName();
