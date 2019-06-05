@@ -114,4 +114,10 @@ public class inicial_frag extends Fragment {
         }
         ConveniarAPI.closeClient();
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        fnd = null;
+    }
 }
