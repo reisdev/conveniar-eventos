@@ -8,13 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.mthrsj.conveniareventos.models.Category;
 import com.mthrsj.conveniareventos.models.Foundation;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class foundation extends AppCompatActivity {
 

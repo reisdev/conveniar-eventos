@@ -2,6 +2,7 @@ package com.mthrsj.conveniareventos.Adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.List;
 
 //RecyclerView.Adapter
 //RecyclerView.ViewHolder
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder>{
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private Context mCtx;
     private List<Event> EventList;
@@ -37,11 +38,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        Event event = EventList.get(position);
-
-        holder.title.setText(event.getNomeEvento());
-        holder.body.setText(event.getInformacoes().getNomeEventoCategoria());
-        holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
+        if (EventList.size() > 0) {
+            Event event = EventList.get(position);
+            holder.title.setText(event.getNomeEvento());
+            String body = new String();
+            for( int i = 0; i <event.getInformacoes().size(); i++){
+                body += event.getInformacoes().get(i).getNomeEventoInformacao() + "\n";
+            }
+            holder.body.setText(body);
+            holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
+        }
     }
 
     @Override
@@ -49,7 +55,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return EventList.size();
     }
 
-    class EventViewHolder extends RecyclerView.ViewHolder{
+    class EventViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, date, body;
         ImageButton bshare;

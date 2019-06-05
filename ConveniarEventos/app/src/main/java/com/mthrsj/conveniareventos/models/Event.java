@@ -1,20 +1,23 @@
 package com.mthrsj.conveniareventos.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Event implements Serializable {
     protected int CodEvent;
     protected String NomeEvento;
     protected String StatusEvento;
     protected String NumeroVagas;
-    protected Category informacoes;
+    protected List<Informacoes> Informacoes;
 
-    public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, Category informacoes) {
+    public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, List<Informacoes> informacoes) {
         CodEvent = codEvent;
         NomeEvento = nomeEvento;
         StatusEvento = statusEvento;
         NumeroVagas = numeroVagas;
-        this.informacoes = informacoes;
+        for(int i = 0; i < informacoes.size(); i++){
+            Informacoes.add(informacoes.get(i));
+        }
     }
 
     public Event(Event e){
@@ -22,7 +25,7 @@ public class Event implements Serializable {
         NomeEvento = e.NomeEvento;
         StatusEvento = e.StatusEvento;
         NumeroVagas = e.NumeroVagas;
-        this.informacoes = e.informacoes;
+        Informacoes = e.Informacoes;
     }
 
     public int getCodEvent() {
@@ -41,11 +44,11 @@ public class Event implements Serializable {
         return NumeroVagas;
     }
 
-    public Category getInformacoes() {
-        return informacoes;
+    public List<Informacoes> getInformacoes() {
+        return Informacoes;
     }
 
-    public void setInformacoes(Category informacoes) {
-        this.informacoes = informacoes;
+    public void setInformacoes(List<Informacoes> informacoes) {
+        Informacoes = informacoes;
     }
 }
