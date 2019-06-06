@@ -4,25 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".SplashScreen"
-    android:background="@color/colorPrimary">
+    tools:layout_centerHorizontal="true">
 
     <ImageView
         android:id="@+id/conveniar_image"
-        android:layout_width="304dp"
-        android:layout_height="470dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentStart="false"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-49dp"
-        android:layout_marginEnd="43dp"
-        android:src="@drawable/conveniar_logo"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="-40dp"
+        android:layout_marginRight="50dp"
+        android:src="@drawable/conveniar_logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/conveniar_image"
+        android:layout_below="@id/conveniar_image"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="-50dp"
         android:layout_marginBottom="0dp"
         android:text="conveniar"
         android:textColor="@color/white"
@@ -33,11 +36,12 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="211dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignBottom="@+id/conveniar_image"
-        android:layout_marginBottom="-80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
         android:progressBackgroundTint="@color/white"
-        android:progressTint="@color/white"/>
+        android:progressTint="@color/white" />
 
 
 </RelativeLayout>

@@ -31,7 +31,6 @@ import retrofit2.Callback;
 public class SplashScreen extends AppCompatActivity {
 
     ProgressBar pb;
-    private int progressStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +47,24 @@ public class SplashScreen extends AppCompatActivity {
             Log.d("PRM", "Permission not granted");
             /* Permission is not granted */
             ActivityCompat.requestPermissions(SplashScreen.this, new String[]{Manifest.permission.INTERNET}, 1);
-            progressStatus += 33;
-            pb.setProgress(0);
-            pb.setMax(100);
-            pb.setProgress(progressStatus);
+            for(int i =0; i < 3; i++) pb.incrementProgressBy(11);
         } else {
             Log.d("PRM", "Internet Permission granted");
-            progressStatus += 33;
-            pb.setProgress(0);
-            pb.setMax(100);
-            pb.setProgress(progressStatus);
+            for(int i =0; i < 3; i++) pb.incrementProgressBy(11);
         }
+        checkConnectivity();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
         checkConnectivity();
     }
 
     public void checkConnectivity() {
         if (isOnline()) {
-            progressStatus += 33;
+            pb.incrementProgressBy(33);
             Log.d("CON", "Is online!");
-            pb.setProgress(0);
-            pb.setMax(100);
-            pb.setProgress(progressStatus);
             getFoundationsList();
         } else {
             Log.e("NET", "Não esta connectado com a internet!");
@@ -92,9 +88,8 @@ public class SplashScreen extends AppCompatActivity {
     public void configureRealm() {
         Realm.init(this.getApplicationContext());
         RealmConfiguration config = new RealmConfiguration.Builder().name("conveniar-eventos.realm").build();
-        Database db = new Database();
-        db.getInstance().setDefaultConfiguration(config);
-        progressStatus += 34;
+        Database.configure(config);
+        pb.incrementProgressBy(33);
     }
 
 
@@ -106,11 +101,6 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Foundation>> call, retrofit2.Response<List<Foundation>> response) {
                 if (response.isSuccessful()) {
-                    progressStatus += 33;
-                    Log.d("CON", "Is online!");
-                    pb.setProgress(0);
-                    pb.setMax(100);
-                    pb.setProgress(progressStatus);
                     goToFoundationView(response.body());
                 }
             }
