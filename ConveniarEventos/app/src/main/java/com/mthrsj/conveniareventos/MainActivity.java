@@ -20,7 +20,8 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
 
     Foundation foundation;
-
+    int actual_frag = 1;
+    Boolean new_frag = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +39,39 @@ public class MainActivity extends AppCompatActivity {
                 Fragment selectedFrag = null;
                 switch (item.getItemId()) {
                     case R.id.frag_inicial:
-                        selectedFrag = inicial_frag.newInstance(foundation);
+                        if(actual_frag != 1) {
+                            selectedFrag = inicial_frag.newInstance(foundation);
+                            new_frag = true;
+                        } else new_frag = false;
+                        actual_frag = 1;
                         break;
                     case R.id.frag_fav:
-                        selectedFrag = favorito_frag.newInstance();
+                        if(actual_frag != 2) {
+                            selectedFrag = favorito_frag.newInstance();
+                            new_frag = true;
+                        } else new_frag = false;
+                        actual_frag = 2;
                         break;
                     case R.id.frag_ins:
-                        selectedFrag = insc_frag.newInstance();
+                        if(actual_frag != 3) {
+                            selectedFrag = insc_frag.newInstance();
+                            new_frag = true;
+                        } else new_frag = false;
+                        actual_frag = 3;
                         break;
                     case R.id.frag_perfil:
-                        selectedFrag = perfil_frag.newInstance();
+                        if(actual_frag != 4){
+                            selectedFrag = perfil_frag.newInstance();
+                            new_frag = true;
+                        } else new_frag = false;
+                        actual_frag = 4;
                         break;
                 }
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, selectedFrag);
-                transaction.commit();
+                if(new_frag == true){
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, selectedFrag);
+                    transaction.commit();
+                }
                 return true;
             }
         });
