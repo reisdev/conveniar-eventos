@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         foundation = new Foundation((Foundation) bd.getSerializable("foundation"));
 
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        nav.setItemIconSize(180);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

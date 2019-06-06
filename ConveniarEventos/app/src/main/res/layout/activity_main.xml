@@ -26,10 +26,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginBottom="0dp"
         android:background="@color/white"
-        app:itemIconSize="30sp"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/navbar" />
 
 
