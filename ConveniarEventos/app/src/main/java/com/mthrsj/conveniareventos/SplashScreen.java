@@ -1,11 +1,9 @@
 package com.mthrsj.conveniareventos;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -13,6 +11,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
@@ -28,8 +30,8 @@ import retrofit2.Callback;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private int progressStatus = 0;
     ProgressBar pb;
+    private int progressStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,28 +54,48 @@ public class SplashScreen extends AppCompatActivity {
             pb.setProgress(progressStatus);
         } else {
             Log.d("PRM", "Internet Permission granted");
+            progressStatus += 33;
+            pb.setProgress(0);
+            pb.setMax(100);
+            pb.setProgress(progressStatus);
         }
+        checkConnectivity();
+    }
 
+    public void checkConnectivity() {
         if (isOnline()) {
             progressStatus += 33;
-            Log.d("CON","Is online!");
+            Log.d("CON", "Is online!");
             pb.setProgress(0);
             pb.setMax(100);
             pb.setProgress(progressStatus);
             getFoundationsList();
         } else {
             Log.e("NET", "Não esta connectado com a internet!");
-            //DISPARAR ALERTA
+            AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this, android.R.style.Theme_DeviceDefault_Dialog_Alert);
+            builder.setMessage(R.string.noConnectionMessage).setTitle(R.string.noConnection);
+            builder.setPositiveButton(R.string.try_again, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    checkConnectivity();
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
-    public void configureRealm(){
+
+    public void configureRealm() {
         Realm.init(this.getApplicationContext());
         RealmConfiguration config = new RealmConfiguration.Builder().name("conveniar-eventos.realm").build();
         Database db = new Database();
         db.getInstance().setDefaultConfiguration(config);
         progressStatus += 34;
     }
-
 
 
     public void getFoundationsList() {
@@ -85,7 +107,7 @@ public class SplashScreen extends AppCompatActivity {
             public void onResponse(Call<List<Foundation>> call, retrofit2.Response<List<Foundation>> response) {
                 if (response.isSuccessful()) {
                     progressStatus += 33;
-                    Log.d("CON","Is online!");
+                    Log.d("CON", "Is online!");
                     pb.setProgress(0);
                     pb.setMax(100);
                     pb.setProgress(progressStatus);
@@ -95,7 +117,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Foundation>> call, Throwable t) {
-                    Log.e("REQ","Cannot get foundations list");
+                Log.e("REQ", "Cannot get foundations list");
             }
         });
         ConveniarAPI.closeClient();

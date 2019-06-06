@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="noConnection">Sem conexão</string>
+    <string name="noConnectionMessage">Você precisa ativar sua conexão Wi-Fi ou de Dados Móveis para utilizar este aplicativo</string>
+    <string name="try_again">Tentar  novamente</string>
+    <string name="cancel">Cancelar</string>
 </resources>
