@@ -4,11 +4,9 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class Database {
-    private static Realm db;
+    private static Realm db = Realm.getDefaultInstance();
 
-    public Database() {
-        db = Realm.getDefaultInstance();
-    }
+    //private Database() { db = Realm.getDefaultInstance(); }
 
     public static Realm getInstance() {
         return db;

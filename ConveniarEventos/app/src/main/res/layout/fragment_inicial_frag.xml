@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorPrimary"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:focusableInTouchMode="true"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
