@@ -41,8 +41,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             Event event = EventList.get(position);
             holder.title.setText(event.getNomeEvento());
             String body = "";
-            for( int i = 0; i <event.getInformacoes().size(); i++){
-                body.concat(event.getInformacoes().get(i).getNomeEventoInformacao() + "\n");
+            for (int i = 0; i < event.getInformacoes().size(); i++) {
+                body = body.concat(event.getInformacoes().get(i).getNomeEventoInformacao() + "\n");
+            }
+            int vagas = event.getNumeroVagas();
+            if (vagas >= 0) {
+                holder.vacancies.setText("Vagas: " + vagas);
+            } else {
+                holder.vacancies.setText("Vagas: 0");
             }
             holder.body.setText(body);
             holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
@@ -56,7 +62,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     class EventViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, date, body;
+        TextView title, date, body, vacancies;
         ImageButton bshare;
 
         private EventViewHolder(@NonNull View itemView) {
@@ -66,6 +72,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             date = itemView.findViewById(R.id.date);
             body = itemView.findViewById(R.id.body);
             bshare = itemView.findViewById(R.id.bshare);
+            vacancies = itemView.findViewById(R.id.vacancies);
         }
     }
 }

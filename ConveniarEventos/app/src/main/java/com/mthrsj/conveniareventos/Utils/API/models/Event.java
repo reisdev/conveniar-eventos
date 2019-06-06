@@ -7,10 +7,10 @@ public class Event implements Serializable {
     private int CodEvent;
     private String NomeEvento;
     private String StatusEvento;
-    private String NumeroVagas;
+    private int NumeroVagas;
     private List<Informacoes> Informacoes;
 
-    public Event(int codEvent, String nomeEvento, String statusEvento, String numeroVagas, List<Informacoes> informacoes) {
+    public Event(int codEvent, String nomeEvento, String statusEvento, int numeroVagas, List<Informacoes> informacoes) {
         CodEvent = codEvent;
         NomeEvento = nomeEvento;
         StatusEvento = statusEvento;
@@ -38,7 +38,7 @@ public class Event implements Serializable {
         return StatusEvento;
     }
 
-    public String getNumeroVagas() {
+    public int getNumeroVagas() {
         return NumeroVagas;
     }
 
