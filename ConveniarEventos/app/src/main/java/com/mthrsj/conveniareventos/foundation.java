@@ -11,12 +11,12 @@ import android.widget.AdapterView;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 import com.mthrsj.conveniareventos.Utils.API.models.URLS;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class foundation extends AppCompatActivity {
 
     String[] aux;
-    List<URLS> domain;
+    ArrayList<URLS> domain;
     Intent it;
 
     @Override
@@ -26,7 +26,8 @@ public class foundation extends AppCompatActivity {
 
         it = getIntent();
         aux = it.getStringArrayExtra("foundation_name");
-        domain = (List<URLS>) it.getSerializableExtra("foundation_domain");
+        domain = (ArrayList<URLS>) it.getSerializableExtra("foundation_domain");
+        Log.d("DEB",domain.toString());
         final FoundationPicker FndPicker = findViewById(R.id.FoundationList);
         FndPicker.setValues(aux);
 
@@ -34,10 +35,8 @@ public class foundation extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 it = new Intent(foundation.this, MainActivity.class);
-                Bundle bd = new Bundle();
                 Foundation f = new Foundation(aux[position], domain.get(position));
-                bd.putSerializable("foundation", f);
-                it.putExtras(bd);
+                it.putExtra("foundation",f);
                 startActivity(it);
             }
         });

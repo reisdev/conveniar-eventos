@@ -120,14 +120,14 @@ public class SplashScreen extends AppCompatActivity {
         Log.i("GOTO", response.toString());
         Intent it = new Intent(SplashScreen.this, foundation.class);
         String[] foundations = new String[response.size()];
-        List<URLS> domain = new ArrayList<URLS>();
+        ArrayList<URLS> domain = new ArrayList();
         for (int i = 0; i < response.size(); i++) {
-            Log.d("REQ", response.get(i).toString());
+            Log.d("REQ", response.get(i).getURLS().toString());
             foundations[i] = response.get(i).getName().split("\\s*([-]|[|])")[0];
             domain.add(i,response.get(i).getURLS());
         }
         it.putExtra("foundation_name", foundations);
-        it.putExtra("foundation_domain",(Serializable) domain);
+        it.putExtra("foundation_domain",domain);
         startActivity(it);
         finish();
     }

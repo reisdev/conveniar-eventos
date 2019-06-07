@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent it = getIntent();
-        Bundle bd = it.getExtras();
-        foundation = new Foundation((Foundation) bd.getSerializable("foundation"));
+        foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
 
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         nav.setItemIconSize(180);

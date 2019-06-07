@@ -56,6 +56,8 @@ public class inicial_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        Log.d("DEB",fnd.getURLS().toString());
+
         getApiRequestCategories(fnd.getURLS().getEventos());
         updateEventsList();
     }
