@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         frag.setArguments(extras);
         transaction.replace(R.id.frame_layout, frag.newInstance(foundation));
         transaction.commit();
-        testRealm(foundation);
+        //testRealm(foundation);
     }
 
     public void testRealm(Foundation fnd) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         db.beginTransaction();
         Config actualFoundation = db.createObject(Config.class);
         actualFoundation.setName("foundation");
-        actualFoundation.setValue(fnd.getDomain());
+        actualFoundation.setValue(fnd.getURLS().getEventos());
         final Config managedConfig = db.copyFromRealm(actualFoundation);
         db.commitTransaction();
         Log.d("DB", "Created config for foundation");

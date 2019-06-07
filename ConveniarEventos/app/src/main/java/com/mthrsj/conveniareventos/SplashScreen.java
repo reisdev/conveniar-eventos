@@ -19,8 +19,11 @@ import androidx.core.content.ContextCompat;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.URLS;
 import com.mthrsj.conveniareventos.Utils.Database.Database;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -47,16 +50,16 @@ public class SplashScreen extends AppCompatActivity {
             Log.d("PRM", "Permission not granted");
             /* Permission is not granted */
             ActivityCompat.requestPermissions(SplashScreen.this, new String[]{Manifest.permission.INTERNET}, 1);
-            for(int i =0; i < 3; i++) pb.incrementProgressBy(11);
+            for (int i = 0; i < 3; i++) pb.incrementProgressBy(11);
         } else {
             Log.d("PRM", "Internet Permission granted");
-            for(int i =0; i < 3; i++) pb.incrementProgressBy(11);
+            for (int i = 0; i < 3; i++) pb.incrementProgressBy(11);
         }
         checkConnectivity();
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         checkConnectivity();
     }
@@ -114,16 +117,17 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void goToFoundationView(List<Foundation> response) {
-        Log.i("GOTO", "Go to foundations");
+        Log.i("GOTO", response.toString());
         Intent it = new Intent(SplashScreen.this, foundation.class);
         String[] foundations = new String[response.size()];
-        String[] domain = new String[response.size()];
+        List<URLS> domain = new ArrayList<URLS>();
         for (int i = 0; i < response.size(); i++) {
+            Log.d("REQ", response.get(i).toString());
             foundations[i] = response.get(i).getName().split("\\s*([-]|[|])")[0];
-            domain[i] = response.get(i).getDomain();
+            domain.add(i,response.get(i).getURLS());
         }
         it.putExtra("foundation_name", foundations);
-        it.putExtra("foundation_domain", domain);
+        it.putExtra("foundation_domain",(Serializable) domain);
         startActivity(it);
         finish();
     }

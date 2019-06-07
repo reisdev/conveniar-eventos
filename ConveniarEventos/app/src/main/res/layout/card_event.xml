@@ -72,11 +72,26 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/actions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/content">
+                android:layout_below="@+id/content"
+                android:layout_marginTop="0dp">
+
+                <TextView
+                    android:id="@+id/vacancies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:maxHeight="100dp"
+                    android:padding="11dp"
+                    android:text="Vagas: "
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
                 <ImageButton
                     android:id="@+id/bshare"
                     style="@style/Widget.AppCompat.ImageButton"
@@ -90,19 +105,6 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_share" />
             </RelativeLayout>
-            <TextView
-                android:id="@+id/vacancies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/content"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="false"
-                android:maxHeight="100dp"
-                android:padding="15dp"
-                android:text="Vagas: "
-                android:textColor="@color/black"
-                android:textSize="16sp" />
 
 
         </RelativeLayout>

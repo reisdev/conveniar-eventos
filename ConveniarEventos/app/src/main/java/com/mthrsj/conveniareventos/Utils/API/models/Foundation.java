@@ -3,29 +3,30 @@ package com.mthrsj.conveniareventos.Utils.API.models;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Foundation implements Serializable {
-    private String Name;
-    private String Domain;
+    private String Fundacao;
+    private URLS URLs;
 
     public Foundation(Foundation f) {
-        Name = f.getName();
-        Domain = f.getDomain();
+        Fundacao = f.getName();
+        URLs = f.getURLS();
     }
 
-    public Foundation(String n, String d){
-        Name = n;
-        Domain = d;
+    public Foundation(String n, URLS u){
+        Fundacao = n;
+        URLs = u;
     }
 
     public String getName(){
-        return Name;
+        return Fundacao;
     }
     public String getNameReduced(){
         return getName().split("\\s*([-]|[|])")[0];
     }
-    public String getDomain(){
-        return Domain;
+    public URLS getURLS(){
+        return URLs;
     }
 
     @NonNull

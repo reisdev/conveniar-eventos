@@ -6,8 +6,6 @@ import io.realm.RealmConfiguration;
 public class Database {
     private static Realm db = Realm.getDefaultInstance();
 
-    //private Database() { db = Realm.getDefaultInstance(); }
-
     public static Realm getInstance() {
         return db;
     }
