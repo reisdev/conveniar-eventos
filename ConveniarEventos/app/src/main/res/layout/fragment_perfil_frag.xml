@@ -6,9 +6,28 @@
     tools:context=".perfil_frag">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Perfil frag" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="118dp"
+            android:id="@+id/upper">
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="541dp"
+            android:layout_below="@+id/upper"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp">
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>
