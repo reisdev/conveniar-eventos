@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="false"
                     android:layout_alignParentBottom="false"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="Share button"
                     android:scaleType="centerInside"

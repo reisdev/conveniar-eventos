@@ -30,6 +30,4 @@
         app:itemTextAppearanceInactive="@style/BottomNavigationView"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/navbar" />
-
-
 </RelativeLayout>

@@ -11,13 +11,13 @@
     </style>
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:color">@color/grey</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:fadeEnabled">false</item>
     </style>
 
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:color">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fadeEnabled">false</item>
     </style>
 
     <style name="NumberPickerText">
