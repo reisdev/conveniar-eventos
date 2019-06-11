@@ -104,6 +104,13 @@
                     android:contentDescription="Share button"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_share" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_favorite_grey"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_toRightOf="@+id/bshare"
+                    android:backgroundTint="#FFFFFF"/>
             </RelativeLayout>
 
 
