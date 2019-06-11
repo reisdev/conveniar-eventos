@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Intent it = getIntent();
         foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
 
-        BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setItemIconSize(180);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

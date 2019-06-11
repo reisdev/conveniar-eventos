@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConveniarAPI {
-    private static String BASE_URL = "https://servicos.conveniar.com.br/adminservico/api/";
+    private static String BASE_URL = "https://apieventos.conveniar.com.br/conveniar/api/";
     private static Retrofit rfit = null;
 
     public static Retrofit getClient() {
@@ -20,6 +20,7 @@ public class ConveniarAPI {
     }
 
     public static Retrofit getClient(String API_URL) {
+        Log.d("REQ", "Request URL:" + API_URL);
         if (rfit == null) {
             rfit = new Retrofit.Builder()
                     .baseUrl(API_URL)

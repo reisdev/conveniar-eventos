@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mthrsj.conveniareventos.R;
 import com.mthrsj.conveniareventos.Utils.API.models.Event;
+import com.mthrsj.conveniareventos.Utils.API.models.Informacoes;
 
 import java.util.List;
 
@@ -41,17 +42,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             Event event = EventList.get(position);
             holder.title.setText(event.getNomeEvento());
             String body = "";
-            for (int i = 0; i < event.getInformacoes().size(); i++) {
-                body = body.concat(event.getInformacoes().get(i).getNomeEventoInformacao() + "\n");
+            int vagas;
+            try {
+                Informacoes i= event.getInformacoes();
+                body = body.concat(i.getNomeEventoInformacao() + "\n");
+                body = body.concat(i.getDescEventoInformacao());
+            } catch (NullPointerException E){
+
             }
-            int vagas = event.getNumeroVagas();
-            if (vagas >= 0) {
+            try {
+                vagas = event.getNumeroVagas();
                 holder.vacancies.setText("Vagas: " + vagas);
-            } else {
+            } catch (NullPointerException E){
                 holder.vacancies.setText("Vagas: 0");
             }
             holder.body.setText(body);
-            holder.date.setText(event.getStatusEvento()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
+            holder.date.setText(event.getSituacao()); //MUDAR ISSO DPS PARA A DATA DO EVENTO
         }
     }
 

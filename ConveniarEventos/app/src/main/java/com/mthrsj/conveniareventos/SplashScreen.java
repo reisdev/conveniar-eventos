@@ -97,7 +97,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
     public void getFoundationsList() {
-        ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
+        ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apiadmin.conveniar.com.br/resource/api/").create(ConveniarEndpoints.class);
         Call<List<Foundation>> allFoundation = apiService.getFoundations();
 
         allFoundation.enqueue(new Callback<List<Foundation>>() {

@@ -8,33 +8,37 @@ public class URLS implements Serializable {
     private String Eventos;
     private String Coordenador;
     private String Fundacao;
-    private String Fornecedor;
+    private String Arquivos;
+    private String Pagamentos;
 
-    public URLS(){
-        Autenticacao = "";
-        Transparencia = "";
-        Eventos = "";
-        Coordenador = "";
-        Fundacao = "";
-        Fornecedor = "";
-    }
-
-    public URLS(String autenticacao, String transparencia, String eventos, String coordenador, String fundacao, String fornecedor) {
+    public URLS(String autenticacao, String transparencia, String eventos, String coordenador, String fundacao, String arquivos, String pagamentos) {
         Autenticacao = autenticacao;
         Transparencia = transparencia;
         Eventos = eventos;
         Coordenador = coordenador;
         Fundacao = fundacao;
-        Fornecedor = fornecedor;
+        Arquivos = arquivos;
+        Pagamentos = pagamentos;
     }
 
-    public URLS(URLS c){
+    public URLS() {
+        Autenticacao = "";
+        Transparencia = "";
+        Eventos = "";
+        Coordenador = "";
+        Fundacao = "";
+        Arquivos = "";
+        Pagamentos = "";
+    }
+
+    public URLS(URLS c) {
         Autenticacao = c.Autenticacao;
         Transparencia = c.Transparencia;
         Eventos = c.Eventos;
         Coordenador = c.Coordenador;
         Fundacao = c.Fundacao;
-        Fornecedor = c.Fornecedor;
+        Arquivos = c.Arquivos;
+        Pagamentos = c.Pagamentos;
     }
 
     public String getAutenticacao() {
@@ -51,6 +55,22 @@ public class URLS implements Serializable {
 
     public void setTransparencia(String transparencia) {
         Transparencia = transparencia;
+    }
+
+    public String getArquivos() {
+        return Arquivos;
+    }
+
+    public void setArquivos(String arquivos) {
+        Arquivos = arquivos;
+    }
+
+    public String getPagamentos() {
+        return Pagamentos;
+    }
+
+    public void setPagamentos(String pagamentos) {
+        Pagamentos = pagamentos;
     }
 
     public String getEventos() {
@@ -75,13 +95,5 @@ public class URLS implements Serializable {
 
     public void setFundacao(String fundacao) {
         Fundacao = fundacao;
-    }
-
-    public String getFornecedor() {
-        return Fornecedor;
-    }
-
-    public void setFornecedor(String fornecedor) {
-        Fornecedor = fornecedor;
     }
 }

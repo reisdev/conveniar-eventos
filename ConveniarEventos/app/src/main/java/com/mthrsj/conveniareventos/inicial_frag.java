@@ -22,6 +22,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class inicial_frag extends Fragment {
 
@@ -58,7 +59,7 @@ public class inicial_frag extends Fragment {
 
         Log.d("DEB",fnd.getURLS().toString());
 
-        getApiRequestCategories(fnd.getURLS().getEventos());
+        getEvents();
         updateEventsList();
     }
 
@@ -67,54 +68,26 @@ public class inicial_frag extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void getApiRequestCategories(final String domain) {
-        String url = domain + "/api/";
-        //TODO: trocar o api_url para o url recebido de dominio, qnd o acesso for liberado
-        ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
-        Call<List<Category>> allCategory = apiService.getCategories();
-        allCategory.enqueue(new Callback<List<Category>>() {
+    private void getEvents(){
+        ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
+        final Call<List<Event>> events = apiService.getEvents();
+        events.enqueue(new Callback<List<Event>>() {
             @Override
-            public void onResponse(Call<List<Category>> call, retrofit2.Response<List<Category>> response) {
-                if (response.isSuccessful()) {
-                    getEventByCategory(response.body());
-                } else {
-                    Log.e("REQ", "Request of categories failed:" + response.raw().body());
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if(response.isSuccessful()){
+                    Log.d("EVT",response.body().toString());
+                    eventList.addAll(response.body());
+                    updateEventsList();
+                }
+                else {
+                    Log.e("REQ", "Request of events failed: " + response.raw().body());
                 }
             }
-
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                Log.e("REQ", "Could not connect to API");
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Log.e("REQ", "Request of events failed:" + t.toString());
             }
         });
-        ConveniarAPI.closeClient();
-    }
-
-    private void getEventByCategory(List<Category> categoriesRes) {
-        String[] categories = new String[categoriesRes.size()];
-        for (int i = 0; i < categoriesRes.size(); i++) {
-            //TODO: trocar o api_url para o url recebido de dominio, qnd o acesso for liberado
-            ConveniarEndpoints apiService = ConveniarAPI.getClient("https://servicos.conveniar.com.br/servicos/api/").create(ConveniarEndpoints.class);
-            Call<List<Event>> eventByCategory = apiService.getEvents(Integer.toString(categoriesRes.get(i).getCodEventoCategoria()));
-            eventByCategory.enqueue(new Callback<List<Event>>() {
-                @Override
-                public void onResponse(Call<List<Event>> call, retrofit2.Response<List<Event>> response) {
-                    if (response.isSuccessful()) {
-                        for (int j = 0; j < response.body().size(); j++) {
-                            Event e = new Event(response.body().get(j));
-                            eventList.add(e);
-                        }
-                        updateEventsList();
-                    } else {
-                        Log.e("REQ", "Request of events by categories failed:" + response.raw().body());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Event>> call, Throwable t) {
-                }
-            });
-        }
         ConveniarAPI.closeClient();
     }
 
