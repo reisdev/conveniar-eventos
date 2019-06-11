@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setItemIconSize(180);
+        nav.setItemIconSize(100);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         final Config managedConfig = db.copyFromRealm(actualFoundation);
         db.commitTransaction();
         Log.d("DB", "Created config for foundation");
-
         db.beginTransaction();
         boolean result = db.where(Config.class).equalTo("name", "foundation").findAll().deleteFirstFromRealm();
         db.commitTransaction();
