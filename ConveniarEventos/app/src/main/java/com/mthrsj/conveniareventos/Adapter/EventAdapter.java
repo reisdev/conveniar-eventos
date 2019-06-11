@@ -2,6 +2,7 @@ package com.mthrsj.conveniareventos.Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,6 @@ import com.mthrsj.conveniareventos.Utils.API.models.Informacoes;
 
 import java.util.List;
 
-//RecyclerView.Adapter
-//RecyclerView.ViewHolder
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private Context mCtx;
@@ -39,21 +38,32 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         if (EventList.size() > 0) {
-            Event event = EventList.get(position);
+            final Event event = EventList.get(position);
+            holder.bshare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String message = String.format("Conheça o evento %s, que começará no dia %s \n\nLink: http://conveniar.com.br",event.getNomeEvento(), event.getDataInicio().split("T")[0]);
+                    Intent i = new Intent();
+                    i.setAction(Intent.ACTION_SEND);
+                    i.setType("text/plain");
+                    i.putExtra(Intent.EXTRA_TEXT,message);
+                    mCtx.startActivity(Intent.createChooser(i,"Compartilhar em"));
+                }
+            });
             holder.title.setText(event.getNomeEvento());
             String body = "";
             int vagas;
             try {
-                Informacoes i= event.getInformacoes();
+                Informacoes i = event.getInformacoes();
                 body = body.concat(i.getNomeEventoInformacao() + "\n");
                 body = body.concat(i.getDescEventoInformacao());
-            } catch (NullPointerException E){
+            } catch (NullPointerException E) {
 
             }
             try {
                 vagas = event.getNumeroVagas();
                 holder.vacancies.setText("Vagas: " + vagas);
-            } catch (NullPointerException E){
+            } catch (NullPointerException E) {
                 holder.vacancies.setText("Vagas: 0");
             }
             holder.body.setText(body);

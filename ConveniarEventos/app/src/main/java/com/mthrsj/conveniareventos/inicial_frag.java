@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
-import com.mthrsj.conveniareventos.Utils.API.models.Category;
 import com.mthrsj.conveniareventos.Utils.API.models.Event;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 

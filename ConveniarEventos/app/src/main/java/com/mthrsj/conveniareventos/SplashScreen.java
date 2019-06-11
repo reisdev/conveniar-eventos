@@ -22,7 +22,6 @@ import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 import com.mthrsj.conveniareventos.Utils.API.models.URLS;
 import com.mthrsj.conveniareventos.Utils.Database.Database;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
