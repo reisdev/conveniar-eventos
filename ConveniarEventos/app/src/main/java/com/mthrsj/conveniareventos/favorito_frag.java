@@ -75,6 +75,19 @@ public class favorito_frag extends Fragment {
             db.commitTransaction();*/
             final Config favConfig = db.where(Config.class).equalTo("name", "favorites").findFirst();
             db.commitTransaction();
+            favConfig.addChangeListener(new RealmObjectChangeListener<Config>() {
+                @Override
+                public void onChange(Config config, @Nullable ObjectChangeSet changeSet) {
+                    String[] favS = config.getValue().split(" ");
+                    List<Integer> query = new ArrayList<>();
+                    for (int i = 0; i < favS.length; i++) {
+                        if (!favS[i].isEmpty()) query.add(Integer.parseInt(favS[i]));
+                    }
+                    Log.d("FAV", "New request");
+                    if (query.size() > 0) favoriteEventsRequest(query);
+                }
+            });
+
             String[] favS = favConfig.getValue().split(" ");
             if (favConfig.getValue().length() == 0) {
                 return;
@@ -84,23 +97,12 @@ public class favorito_frag extends Fragment {
                 if (!favS[i].isEmpty()) query.add(Integer.parseInt(favS[i]));
             }
             favoriteEventsRequest(query);
-            favConfig.addChangeListener(new RealmObjectChangeListener<Config>() {
-                @Override
-                public void onChange(Config config, @Nullable ObjectChangeSet changeSet) {
-                    String[] favS = config.getValue().split(" ");
-                    List<Integer> query = new ArrayList<>();
-                    for (int i = 0; i < favS.length; i++) {
-                        if (!favS[i].isEmpty()) query.add(Integer.parseInt(favS[i]));
-                    }
-                    favoriteEventsRequest(query);
-                }
-            });
         } catch (NullPointerException e) {
 
         }
     }
 
-    public void favoriteEventsRequest(List<Integer> query){
+    public void favoriteEventsRequest(List<Integer> query) {
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
         final Call<List<Event>> events = apiService.getEventsById(query);
         events.enqueue(new Callback<List<Event>>() {

@@ -130,7 +130,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             Log.d("FAV", "Favorites size: " + size);
             for (int i = 0; i < favS.length; i++) {
                 if (!favS[i].trim().equals(String.format("%d", id))) {
-                    if (i < favS.length - 1 || favS.length == 1) {
+                    if (i < favS.length - 1 || favS.length >= 1) {
                         newFavs = newFavs.concat(favS[i].trim() + " ");
                     } else {
                         newFavs = newFavs.concat(favS[i].trim());
