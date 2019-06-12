@@ -121,7 +121,6 @@ public class SplashScreen extends AppCompatActivity {
         String[] foundations = new String[response.size()];
         ArrayList<URLS> domain = new ArrayList();
         for (int i = 0; i < response.size(); i++) {
-            Log.d("REQ", response.get(i).getURLS().toString());
             foundations[i] = response.get(i).getName().split("\\s*([-]|[|])")[0];
             domain.add(i,response.get(i).getURLS());
         }

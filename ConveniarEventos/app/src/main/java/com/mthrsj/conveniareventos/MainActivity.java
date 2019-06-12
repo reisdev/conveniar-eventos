@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Foundation foundation;
     int actual_frag = 1;
     Boolean new_frag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,5 +99,12 @@ public class MainActivity extends AppCompatActivity {
         boolean result = db.where(Config.class).equalTo("name", "foundation").findAll().deleteFirstFromRealm();
         db.commitTransaction();
         Log.d("DB", "Deleted config for foundation: " + result);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Realm db = Database.getInstance();
+        db.close();
     }
 }

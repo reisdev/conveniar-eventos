@@ -56,7 +56,7 @@ public class inicial_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Log.d("DEB",fnd.getURLS().toString());
+        Log.d("DEB", fnd.getURLS().toString());
 
         getEvents();
         updateEventsList();
@@ -67,21 +67,20 @@ public class inicial_frag extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void getEvents(){
+    private void getEvents() {
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
         final Call<List<Event>> events = apiService.getEvents();
         events.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if(response.isSuccessful()){
-                    Log.d("EVT",response.body().toString());
+                if (response.isSuccessful()) {
                     eventList.addAll(response.body());
                     updateEventsList();
-                }
-                else {
+                } else {
                     Log.e("REQ", "Request of events failed: " + response.raw().body());
                 }
             }
+
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 Log.e("REQ", "Request of events failed:" + t.toString());
@@ -91,7 +90,13 @@ public class inicial_frag extends Fragment {
     }
 
     @Override
-    public void onDestroy(){
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         fnd = null;
     }
