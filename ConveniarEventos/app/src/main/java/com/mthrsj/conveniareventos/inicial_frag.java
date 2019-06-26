@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ public class inicial_frag extends Fragment {
     RecyclerView recyclerView;
     EventAdapter adapter;
     List<Event> eventList;
+    private static String[] EventosSearchBar;
 
     public static inicial_frag newInstance(final Foundation f) {
         fnd = new Foundation(f);
@@ -60,6 +63,16 @@ public class inicial_frag extends Fragment {
 
         getEvents();
         updateEventsList();
+
+        if(EventosSearchBar != null){
+            Log.d("SEARCH", "Size of array: " + Integer.toString(EventosSearchBar.length));
+            ArrayAdapter<String> adptSearchBar = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item, EventosSearchBar);
+
+            AutoCompleteTextView searchBar = (AutoCompleteTextView) getActivity().findViewById(R.id.searchBar);
+            searchBar.setAdapter(adptSearchBar);
+        } else {
+            Log.d("SEARCH", "Eventos array is null");
+        }
     }
 
     private void updateEventsList() {
@@ -74,7 +87,14 @@ public class inicial_frag extends Fragment {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if (response.isSuccessful()) {
-                    eventList.addAll(response.body());
+                    if(response.body() != null){
+                        EventosSearchBar = new String[response.body().size()];
+                        eventList.addAll(response.body());
+                        for(int i=0; i < response.body().size(); i++){
+                            EventosSearchBar[i] = (response.body().get(i).getNomeEvento());
+                            Log.d("SEARCH", EventosSearchBar[i]);
+                        }
+                    }
                     updateEventsList();
                 } else {
                     Log.e("REQ", "Request of events failed: " + response.raw().body());

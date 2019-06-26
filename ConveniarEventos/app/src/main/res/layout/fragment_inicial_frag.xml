@@ -24,11 +24,12 @@
             android:textColorHint="@color/colorPrimary"
             app:boxStrokeColor="@color/colorPrimary">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textColorHint="@color/colorPrimary" />
+                android:textColorHint="@color/colorPrimary"
+                android:id="@+id/searchBar"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
