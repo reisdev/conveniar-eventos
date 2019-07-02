@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH;
 
 public class search_frag extends Fragment {
 
@@ -93,6 +96,8 @@ public class search_frag extends Fragment {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
 
+        autoCompleteTextView.setOnEditorActionListener(searchListener);
+
         TextView textSearch = getActivity().findViewById(R.id.text_search);
         TextView textSearchName = getActivity().findViewById(R.id.text_search_name);
         int n = eventList.size();
@@ -101,6 +106,20 @@ public class search_frag extends Fragment {
         textSearchName.setTypeface(Typeface.DEFAULT_BOLD);
         textSearchName.setText('"' + SearchParam + '"');
     }
+
+    private TextView.OnEditorActionListener searchListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch(actionId){
+                case IME_ACTION_SEARCH:
+                    Log.d("SEARCH", "SEARCH UPDATE");
+                    SearchParam = autoCompleteTextView.getText().toString();
+                    getEvents();
+                    break;
+            }
+            return false;
+        }
+    };
 
     public void getEvents(){
         ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
@@ -114,6 +133,9 @@ public class search_frag extends Fragment {
 
                     eventList = new ArrayList<>();
                     eventList.addAll(response.body());
+                    for(int i=0; i< response.body().size(); i++){
+                        Log.d("SEARCH", response.body().get(i).getNomeEvento());
+                    }
 
                     updateEventsList();
                 }
