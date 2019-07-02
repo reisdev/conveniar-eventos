@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class favorito_frag extends Fragment {
     RecyclerView recyclerView;
     List<Event> eventList = new ArrayList<>();
-    EventAdapter adapter = new EventAdapter(this.getContext(), eventList);
+    EventAdapter adapter;
 
     public static favorito_frag newInstance() {
         favorito_frag fragment = new favorito_frag();
@@ -57,13 +57,14 @@ public class favorito_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //getFavoriteEvents();
+        getFavoriteEvents();
         updateEventsList();
     }
 
     private void updateEventsList() {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     public void getFavoriteEvents() {
@@ -78,17 +79,16 @@ public class favorito_frag extends Fragment {
             favConfig.addChangeListener(new RealmObjectChangeListener<Config>() {
                 @Override
                 public void onChange(Config config, @Nullable ObjectChangeSet changeSet) {
-                    String[] favS = config.getValue().split(" ");
+                    String[] favS = config.getValue().split("\\s+");
                     List<Integer> query = new ArrayList<>();
                     for (int i = 0; i < favS.length; i++) {
                         if (!favS[i].isEmpty()) query.add(Integer.parseInt(favS[i]));
                     }
-                    Log.d("FAV", "New request");
-                    if (query.size() > 0) favoriteEventsRequest(query);
+                    favoriteEventsRequest(query);
                 }
             });
 
-            String[] favS = favConfig.getValue().split(" ");
+            String[] favS = favConfig.getValue().split("\\s+");
             if (favConfig.getValue().length() == 0) {
                 return;
             }
@@ -110,6 +110,7 @@ public class favorito_frag extends Fragment {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if (response.isSuccessful()) {
+                    eventList.clear();
                     eventList.addAll(response.body());
                     updateEventsList();
                 } else {

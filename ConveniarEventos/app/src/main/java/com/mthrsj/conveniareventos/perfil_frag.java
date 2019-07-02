@@ -30,6 +30,7 @@ public class perfil_frag extends Fragment {
                              Bundle savedInstanceState) {
         View inflated = inflater.inflate(R.layout.fragment_perfil_frag, container, false);
         ArrayAdapter options_adapter = new ArrayAdapter(inflated.getContext(),R.layout.menu_item);
+        options_adapter.clear();
         options_adapter.addAll(options);
         ListView options_list  = inflated.findViewById(R.id.menu_list);
         options_list.setAdapter(options_adapter);

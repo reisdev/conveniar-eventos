@@ -69,8 +69,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                         holder.bfav.setColorFilter(Color.parseColor("#CD5C5C"));
                     } else {
                         if (toggleFav(event.getCodEvent()) == getItemCount()) {
+                            EventList.remove(position);
                             notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, getItemCount() - 1);
+                            notifyItemRangeChanged(position,EventList.size());
+                            notifyDataSetChanged();
                         }
                         holder.bfav.setColorFilter(Color.parseColor("#707070"));
                     }
@@ -142,6 +144,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             if (!found) {
                 newFavs = newFavs.concat(id + " ");
             }
+            Log.d("FAV", newFavs);
             favConfig.setValue(newFavs);
             db.commitTransaction();
         } catch (NullPointerException e) {
