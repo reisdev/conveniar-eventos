@@ -57,7 +57,7 @@ public class favorito_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getFavoriteEvents();
+        //getFavoriteEvents();
         updateEventsList();
     }
 
@@ -94,6 +94,7 @@ public class favorito_frag extends Fragment {
             }
             List<Integer> query = new ArrayList<>();
             for (int i = 0; i < favS.length; i++) {
+                Log.d("FAV", favS[i]);
                 if (!favS[i].isEmpty()) query.add(Integer.parseInt(favS[i]));
             }
             favoriteEventsRequest(query);

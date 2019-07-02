@@ -11,6 +11,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -94,27 +96,11 @@ public class inicial_frag extends Fragment {
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             switch(actionId){
                 case IME_ACTION_SEARCH:
-                    ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
-                    final Call<List<Event>> events = apiService.getEventsBySearchName(v.getText().toString());
+                    search_frag search = new search_frag();
+                    FragmentManager fm = getFragmentManager();
 
-                    events.enqueue(new Callback<List<Event>>() {
-                        @Override
-                        public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                            if(response.isSuccessful()){
-                                Log.d("SEARCH", "RESPONSE IS SUCCESSFULL");
+                    fm.beginTransaction().replace(R.id.frame_layout, search.newInstance(fnd, v.getText().toString())).commit();
 
-                                eventList = new ArrayList<>();
-                                eventList.addAll(response.body());
-
-                                updateEventsList();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Event>> call, Throwable t) {
-                            Log.d("SEARCH", "RESPONSE FAILED");
-                        }
-                    });
                     break;
             }
             return false;
