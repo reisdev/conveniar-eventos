@@ -64,6 +64,12 @@ public class inicial_frag extends Fragment {
         getEvents();
         updateEventsList();
 
+    }
+
+    private void updateEventsList() {
+        adapter = new EventAdapter(this.getContext(), eventList);
+        recyclerView.setAdapter(adapter);
+
         if(EventosSearchBar != null){
             Log.d("SEARCH", "Size of array: " + Integer.toString(EventosSearchBar.length));
             ArrayAdapter<String> adptSearchBar = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item, EventosSearchBar);
@@ -73,11 +79,6 @@ public class inicial_frag extends Fragment {
         } else {
             Log.d("SEARCH", "Eventos array is null");
         }
-    }
-
-    private void updateEventsList() {
-        adapter = new EventAdapter(this.getContext(), eventList);
-        recyclerView.setAdapter(adapter);
     }
 
     private void getEvents() {
@@ -94,6 +95,7 @@ public class inicial_frag extends Fragment {
                             EventosSearchBar[i] = (response.body().get(i).getNomeEvento());
                             Log.d("SEARCH", EventosSearchBar[i]);
                         }
+
                     }
                     updateEventsList();
                 } else {
