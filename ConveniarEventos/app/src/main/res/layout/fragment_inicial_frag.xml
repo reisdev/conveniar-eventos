@@ -31,7 +31,8 @@
                 android:textColorHint="@color/colorPrimary"
                 android:id="@+id/searchBar"
                 android:inputType="text"
-                android:imeOptions="actionSearch" />
+                android:imeOptions="actionSearch"
+                android:dropDownHeight="240dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton

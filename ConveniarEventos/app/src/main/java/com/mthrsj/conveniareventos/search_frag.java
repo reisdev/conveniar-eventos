@@ -1,6 +1,7 @@
 package com.mthrsj.conveniareventos;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
@@ -36,6 +38,7 @@ public class search_frag extends Fragment {
     EventAdapter adapter;
     List<Event> eventList;
     private static String[] EventosSearchBar;
+    AutoCompleteTextView autoCompleteTextView;
 
     public static search_frag newInstance(final Foundation f, final String param) {
         SearchParam = param;
@@ -46,6 +49,7 @@ public class search_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -59,6 +63,9 @@ public class search_frag extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+
+        autoCompleteTextView = getActivity().findViewById(R.id.searchBar);
+        autoCompleteTextView.setText(SearchParam);
 
         eventList = new ArrayList<>();
 
@@ -85,6 +92,14 @@ public class search_frag extends Fragment {
     public void updateEventsList(){
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
+
+        TextView textSearch = getActivity().findViewById(R.id.text_search);
+        TextView textSearchName = getActivity().findViewById(R.id.text_search_name);
+        int n = eventList.size();
+        String txt = n + " resultados encontrados para";
+        textSearch.setText(txt);
+        textSearchName.setTypeface(Typeface.DEFAULT_BOLD);
+        textSearchName.setText('"' + SearchParam + '"');
     }
 
     public void getEvents(){
