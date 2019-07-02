@@ -2,11 +2,13 @@ package com.mthrsj.conveniareventos;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +26,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH;
 
 public class inicial_frag extends Fragment {
 
@@ -64,6 +68,7 @@ public class inicial_frag extends Fragment {
         getEvents();
         updateEventsList();
 
+
     }
 
     private void updateEventsList() {
@@ -76,10 +81,45 @@ public class inicial_frag extends Fragment {
 
             AutoCompleteTextView searchBar = (AutoCompleteTextView) getActivity().findViewById(R.id.searchBar);
             searchBar.setAdapter(adptSearchBar);
+
+            searchBar.setOnEditorActionListener(searchListener);
+
         } else {
             Log.d("SEARCH", "Eventos array is null");
         }
     }
+
+    private TextView.OnEditorActionListener searchListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch(actionId){
+                case IME_ACTION_SEARCH:
+                    ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
+                    final Call<List<Event>> events = apiService.getEventsBySearchName(v.getText().toString());
+
+                    events.enqueue(new Callback<List<Event>>() {
+                        @Override
+                        public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                            if(response.isSuccessful()){
+                                Log.d("SEARCH", "RESPONSE IS SUCCESSFULL");
+
+                                eventList = new ArrayList<>();
+                                eventList.addAll(response.body());
+
+                                updateEventsList();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Event>> call, Throwable t) {
+                            Log.d("SEARCH", "RESPONSE FAILED");
+                        }
+                    });
+                    break;
+            }
+            return false;
+        }
+    };
 
     private void getEvents() {
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
@@ -95,7 +135,6 @@ public class inicial_frag extends Fragment {
                             EventosSearchBar[i] = (response.body().get(i).getNomeEvento());
                             Log.d("SEARCH", EventosSearchBar[i]);
                         }
-
                     }
                     updateEventsList();
                 } else {

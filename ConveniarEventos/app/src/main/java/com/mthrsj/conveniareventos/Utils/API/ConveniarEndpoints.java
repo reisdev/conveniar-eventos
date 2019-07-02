@@ -27,4 +27,8 @@ public interface ConveniarEndpoints {
     @GET("eventos/ids")
     @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
     Call<List<Event>> getEventsById(@Query("codEventos") List<Integer> query);
+
+    @GET("eventos")
+    @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
+    Call<List<Event>> getEventsBySearchName(@Query("query") String query);
 }

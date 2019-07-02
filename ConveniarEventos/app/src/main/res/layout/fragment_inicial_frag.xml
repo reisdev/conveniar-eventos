@@ -29,7 +29,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textColorHint="@color/colorPrimary"
-                android:id="@+id/searchBar"/>
+                android:id="@+id/searchBar"
+                android:inputType="text"
+                android:imeOptions="actionSearch" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
