@@ -1,11 +1,13 @@
 package com.mthrsj.conveniareventos;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -100,7 +102,8 @@ public class inicial_frag extends Fragment {
                 case IME_ACTION_SEARCH:
                     search_frag search = new search_frag();
                     FragmentManager fm = getFragmentManager();
-
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     fm.beginTransaction().replace(R.id.frame_layout, search.newInstance(fnd, v.getText().toString())).commit();
 
                     break;

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.frag_perfil:
                         if(actual_frag != 4){
-                            selectedFrag = perfil_frag.newInstance();
+                            selectedFrag = login.newInstance();
                             new_frag = true;
                         } else new_frag = false;
                         actual_frag = 4;

@@ -1,5 +1,6 @@
 package com.mthrsj.conveniareventos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -67,13 +69,15 @@ public class search_frag extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(final View view, Bundle savedInstanceState){
 
         search = getActivity().findViewById(R.id.textinput);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 SearchParam = query;
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 getEvents();
                 return true;
             }
@@ -87,9 +91,6 @@ public class search_frag extends Fragment {
         EditText editText = ( search.findViewById(androidx.appcompat.R.id.search_src_text));
         editText.setHintTextColor(getResources().getColor(R.color.black));
         editText.setTextColor(getResources().getColor(R.color.black));
-        search.setFocusable(true);
-        search.setIconified(false);
-        search.requestFocusFromTouch();
         eventList = new ArrayList<>();
 
         recyclerView = getActivity().findViewById(R.id.recycler_view);
@@ -176,7 +177,6 @@ public class search_frag extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        search.requestFocus();
         adapter.notifyDataSetChanged();
     }
 
