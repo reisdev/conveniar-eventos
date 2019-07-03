@@ -77,16 +77,19 @@ public class inicial_frag extends Fragment {
         recyclerView.setAdapter(adapter);
 
         if(EventosSearchBar != null){
-            Log.d("SEARCH", "Size of array: " + Integer.toString(EventosSearchBar.length));
-            ArrayAdapter<String> adptSearchBar = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item, EventosSearchBar);
+            try {
+                ArrayAdapter<String> adptSearchBar = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item, EventosSearchBar);
 
-            AutoCompleteTextView searchBar = (AutoCompleteTextView) getActivity().findViewById(R.id.searchBar);
-            searchBar.setAdapter(adptSearchBar);
+                AutoCompleteTextView searchBar = getActivity().findViewById(R.id.searchBar);
+                searchBar.setAdapter(adptSearchBar);
 
-            searchBar.setOnEditorActionListener(searchListener);
+                searchBar.setOnEditorActionListener(searchListener);
+            }
+            catch (NullPointerException e) {
 
+            }
         } else {
-            Log.d("SEARCH", "Eventos array is null");
+
         }
     }
 

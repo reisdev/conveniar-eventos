@@ -25,14 +25,15 @@
             app:boxStrokeColor="@color/colorPrimary">
 
             <AutoCompleteTextView
+                android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textColorHint="@color/colorPrimary"
-                android:id="@+id/searchBar"
-                android:inputType="text"
+                android:dropDownHeight="240dp"
                 android:imeOptions="actionSearch"
-                android:dropDownHeight="240dp"/>
+                android:inputType="text"
+                android:paddingLeft="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton

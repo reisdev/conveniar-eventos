@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
@@ -40,8 +43,9 @@ public class search_frag extends Fragment {
     RecyclerView recyclerView;
     EventAdapter adapter;
     List<Event> eventList;
+    SearchView search;
     private static String[] EventosSearchBar;
-    AutoCompleteTextView autoCompleteTextView;
+
 
     public static search_frag newInstance(final Foundation f, final String param) {
         SearchParam = param;
@@ -52,7 +56,6 @@ public class search_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -60,16 +63,33 @@ public class search_frag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search_frag, container, false);
-        Log.d("SEARCH", "SEARCH FRAGMENT OPENED");
         return v;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-        autoCompleteTextView = getActivity().findViewById(R.id.searchBar);
-        autoCompleteTextView.setText(SearchParam);
+        search = getActivity().findViewById(R.id.textinput);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchParam = query;
+                getEvents();
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        search.setQuery(SearchParam,true);
+        EditText editText = ( search.findViewById(androidx.appcompat.R.id.search_src_text));
+        editText.setHintTextColor(getResources().getColor(R.color.black));
+        editText.setTextColor(getResources().getColor(R.color.black));
+        search.setFocusable(true);
+        search.setIconified(false);
+        search.requestFocusFromTouch();
         eventList = new ArrayList<>();
 
         recyclerView = getActivity().findViewById(R.id.recycler_view);
@@ -79,8 +99,8 @@ public class search_frag extends Fragment {
         getEvents();
         updateEventsList();
 
-        TextView txt = getActivity().findViewById(R.id.voltar_inicial);
-        txt.setOnClickListener(new View.OnClickListener() {
+        ImageButton goBack = getActivity().findViewById(R.id.voltar_inicial);
+        goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inicial_frag frag = new inicial_frag();
@@ -95,8 +115,6 @@ public class search_frag extends Fragment {
     public void updateEventsList(){
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
-
-        autoCompleteTextView.setOnEditorActionListener(searchListener);
 
         TextView textSearch = getActivity().findViewById(R.id.text_search);
         TextView textSearchName = getActivity().findViewById(R.id.text_search_name);
@@ -113,7 +131,6 @@ public class search_frag extends Fragment {
             switch(actionId){
                 case IME_ACTION_SEARCH:
                     Log.d("SEARCH", "SEARCH UPDATE");
-                    SearchParam = autoCompleteTextView.getText().toString();
                     getEvents();
                     break;
             }
@@ -130,14 +147,20 @@ public class search_frag extends Fragment {
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if(response.isSuccessful()){
                     Log.d("SEARCH", "RESPONSE IS SUCCESSFULL");
-
-                    eventList = new ArrayList<>();
-                    eventList.addAll(response.body());
-                    for(int i=0; i< response.body().size(); i++){
-                        Log.d("SEARCH", response.body().get(i).getNomeEvento());
+                    try {
+                        Event e = new Event(response.body().get(0));
+                        if(e.getCodEvent() == -1) {
+                            eventList.clear();
+                        }
+                        else {
+                            eventList = new ArrayList<>();
+                            eventList.addAll(response.body());
+                        }
+                        updateEventsList();
                     }
-
-                    updateEventsList();
+                    catch (NullPointerException e){
+                        Log.d("SEARCH", "Error: " + e.toString());
+                    }
                 }
             }
 
@@ -153,6 +176,7 @@ public class search_frag extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        search.requestFocus();
         adapter.notifyDataSetChanged();
     }
 

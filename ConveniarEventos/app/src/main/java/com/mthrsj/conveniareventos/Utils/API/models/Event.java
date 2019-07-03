@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Event implements Serializable {
-    private int CodEvento;
+    private Integer CodEvento;
     private String NomeEvento;
     private String Situacao;
     private String DataInicio;
@@ -13,10 +13,10 @@ public class Event implements Serializable {
     private int NumeroVagas;
     private Informacoes Informacoes;
 
-    public Event(int codEvent, String nomeEvento, String Situacao, int numeroVagas, Informacoes informacoes, String dataInicio, String dataFim) {
+    public Event(int codEvent, String nomeEvento, String situacao, Integer numeroVagas, Informacoes informacoes, String dataInicio, String dataFim) {
         CodEvento = codEvent;
         NomeEvento = nomeEvento;
-        Situacao = Situacao;
+        Situacao = situacao;
         NumeroVagas = numeroVagas;
         Informacoes = informacoes;
         DataInicio = dataInicio;
@@ -58,7 +58,11 @@ public class Event implements Serializable {
     }
 
     public int getCodEvent() {
-        return CodEvento;
+        try {
+            return CodEvento;
+        } catch ( NullPointerException e){
+            return -1;
+        }
     }
 
     public void setCodEvent(int codEvent) {

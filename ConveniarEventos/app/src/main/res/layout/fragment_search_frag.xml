@@ -15,39 +15,35 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="326dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="50"
-                android:hint="Pesquisar"
-                android:textColorHint="@color/colorPrimary"
-                app:boxStrokeColor="@color/colorPrimary"
-                android:id="@+id/textinput">
 
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/colorPrimary"
-                    android:id="@+id/searchBar"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="60dp"
+            <ImageButton
+                android:id="@+id/voltar_inicial"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="cancelar"
-                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/colorPrimary"
-                android:clickable="true"
-                android:id="@+id/voltar_inicial"/>
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_keyboard_backspace" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/textinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="100"
+                android:background="@drawable/search_background"
+                android:hint="Pesquisar"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/colorPrimary">
+               <requestFocus />
+            </androidx.appcompat.widget.SearchView>
         </LinearLayout>
 
         <LinearLayout
@@ -75,9 +71,8 @@
 
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -85,8 +80,8 @@
             android:layout_height="546dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="112dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="111dp"
             android:scrollbars="none">
 
         </androidx.recyclerview.widget.RecyclerView>
