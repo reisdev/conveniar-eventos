@@ -14,12 +14,26 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
+import com.mthrsj.conveniareventos.Utils.API.models.User;
 import com.mthrsj.conveniareventos.Utils.Session;
+
+import org.w3c.dom.Text;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class perfil_frag extends Fragment {
     private String[] options = new String[] {"Meus Dados","Alterar Senha", "Ajuda", "Sair"};
+
     Session session;
+
+    TextView txtNome;
+    TextView txtEmail;
 
     public static perfil_frag newInstance() {
         perfil_frag fragment = new perfil_frag();
@@ -54,6 +68,7 @@ public class perfil_frag extends Fragment {
                     case 2:
                         break;
                     case 3:
+                        Log.d("AUTH", "LOGOUT");
                         session.logOut();
 
                         login search = new login();
@@ -67,4 +82,42 @@ public class perfil_frag extends Fragment {
 
         return inflated;
     }
+
+    @Override
+    public void onViewCreated(View v, Bundle savedInstanceState){
+        txtNome = getActivity().findViewById(R.id.name);
+        txtEmail = getActivity().findViewById(R.id.email);
+
+        getUserData();
+    }
+
+    public void getUserData(){
+        String authToken;
+        authToken = session.getAuthToken();
+        if(authToken.equals("-1")){
+            Log.e("AUTH", "COULD NOT GET AUTH TOKEN");
+        } else {
+            ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
+            Call<User> user = apiService.getUsuario(authToken);
+
+            user.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(response.isSuccessful()){
+                        Log.d("AUTH", response.body().getNome());
+                        txtNome.setText(response.body().getNome());
+                        txtEmail.setText(response.body().getEmail());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+
+                }
+            });
+
+            ConveniarAPI.closeClient();
+        }
+    }
 }
+

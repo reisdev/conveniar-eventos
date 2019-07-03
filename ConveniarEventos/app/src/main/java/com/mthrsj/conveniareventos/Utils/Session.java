@@ -28,4 +28,6 @@ public class Session {
     public Boolean isLogged(){
         return prefs.getBoolean("isLogged", false);
     }
+
+    public String getAuthToken(){ return prefs.getString("auth","-1"); }
 }

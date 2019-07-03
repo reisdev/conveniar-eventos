@@ -4,6 +4,7 @@ import com.mthrsj.conveniareventos.Utils.API.models.Auth;
 import com.mthrsj.conveniareventos.Utils.API.models.Category;
 import com.mthrsj.conveniareventos.Utils.API.models.Event;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.User;
 
 import java.util.List;
 
@@ -37,4 +38,8 @@ public interface ConveniarEndpoints {
     @GET("eventos/oauth/token")
     @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
     Call<Auth> authenticate(@Header("Authorization") String credentials);
+
+    @GET("eventos/cadastro/usuario/pessoa")
+    @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
+    Call<User> getUsuario(@Header("Authorization") String auth);
 }

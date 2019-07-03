@@ -22,7 +22,7 @@
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fulano da Silva"/>
+                android:text=""/>
             <TextView
                 android:id="@+id/email"
                 android:textColor="@color/white"
@@ -30,7 +30,7 @@
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fulano.silva@gmail.com"/>
+                android:text=""/>
         </RelativeLayout>
 
         <LinearLayout
