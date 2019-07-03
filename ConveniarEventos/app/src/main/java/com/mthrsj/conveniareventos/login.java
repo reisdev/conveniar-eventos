@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.button.MaterialButton;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.Auth;
+import com.mthrsj.conveniareventos.Utils.Session;
 
 import okhttp3.Credentials;
 import retrofit2.Call;
@@ -21,8 +23,10 @@ import retrofit2.Response;
 
 public class login extends Fragment {
 
+    Session session;
+    EditText email;
+    EditText password;
 
-    // TODO: Rename and change types and number of parameters
     public static login newInstance() {
         return new login();
     }
@@ -42,7 +46,7 @@ public class login extends Fragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         MaterialButton authButton = getActivity().findViewById(R.id.authenticate);
-
+        session = new Session(this.getContext());
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +56,8 @@ public class login extends Fragment {
     }
 
     public void authenticate(View v) {
-        EditText email = getActivity().findViewById(R.id.email_field);
-        EditText password = getActivity().findViewById(R.id.pswd_field);
+        email = getActivity().findViewById(R.id.email_field);
+        password = getActivity().findViewById(R.id.pswd_field);
 
         String credentials = Credentials.basic(email.getText().toString(), password.getText().toString());
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apiauth.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
@@ -65,6 +69,12 @@ public class login extends Fragment {
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
                     Log.d("AUTH", response.body().toString());
+                    session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
+
+                    perfil_frag search = new perfil_frag();
+                    FragmentManager fm = getFragmentManager();
+
+                    fm.beginTransaction().replace(R.id.frame_layout, perfil_frag.newInstance()).commit();
                 } else {
                     Log.e("AUTH","Error"+ response.raw().toString());
                 }
@@ -75,6 +85,7 @@ public class login extends Fragment {
 
             }
         });
+        ConveniarAPI.closeClient();
 
     }
 

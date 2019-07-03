@@ -106,6 +106,7 @@ public class favorito_frag extends Fragment {
     public void favoriteEventsRequest(List<Integer> query) {
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
         final Call<List<Event>> events = apiService.getEventsById(query);
+
         events.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {

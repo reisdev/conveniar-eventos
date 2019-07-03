@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 import com.mthrsj.conveniareventos.Utils.Database.Database;
 import com.mthrsj.conveniareventos.Utils.Database.Models.Config;
+import com.mthrsj.conveniareventos.Utils.Session;
 
 import io.realm.Realm;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Foundation foundation;
     int actual_frag = 1;
     Boolean new_frag = true;
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
+
+        session = new Session(this);
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setItemIconSize(100);
@@ -61,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.frag_perfil:
                         if(actual_frag != 4){
-                            selectedFrag = login.newInstance();
+                            if(session.isLogged()) selectedFrag = perfil_frag.newInstance();
+                            else selectedFrag = login.newInstance();
                             new_frag = true;
                         } else new_frag = false;
                         actual_frag = 4;
