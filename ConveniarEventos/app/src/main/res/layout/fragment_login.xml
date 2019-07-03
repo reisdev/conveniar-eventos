@@ -19,11 +19,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/logo"
+            android:layout_below="@+id/logo"
             android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="40dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linear">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -60,15 +61,36 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button"
                 android:id="@+id/authenticate"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="114dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Entrar"
                 android:textAppearance="@style/AppTheme"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear"
+            android:layout_marginTop="130dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textSize="25sp"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="Entrar" />
+                android:text="Não tem um usuário?"
+                android:textSize="22dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Registrar-se"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22dp" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
