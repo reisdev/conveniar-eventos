@@ -78,6 +78,13 @@ public class inicial_frag extends Fragment {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.d("RECYCLER", Integer.toString(position));
+            }
+        });
+
         if(EventosSearchBar != null){
             try {
                 ArrayAdapter<String> adptSearchBar = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item, EventosSearchBar);
@@ -93,6 +100,10 @@ public class inicial_frag extends Fragment {
         } else {
 
         }
+    }
+
+    public void clicou(View v){
+        Log.d("RECYCLER", "CLICOU");
     }
 
     private TextView.OnEditorActionListener searchListener = new TextView.OnEditorActionListener() {

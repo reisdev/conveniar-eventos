@@ -28,6 +28,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     private Context mCtx;
     private List<Event> EventList;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mListener){
+        listener = mListener;
+    }
 
     public EventAdapter(Context mCtx, List<Event> eventList) {
         this.mCtx = mCtx;
@@ -178,6 +187,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             bshare = itemView.findViewById(R.id.bshare);
             vacancies = itemView.findViewById(R.id.vacancies);
             bfav = itemView.findViewById(R.id.bfav);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
