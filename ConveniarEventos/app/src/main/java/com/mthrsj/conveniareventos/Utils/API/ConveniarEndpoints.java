@@ -39,7 +39,7 @@ public interface ConveniarEndpoints {
     @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
     Call<Auth> authenticate(@Header("Authorization") String credentials);
 
-    @GET("eventos/cadastro/usuario/pessoa")
+    @GET("eventos/usuario")
     @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
     Call<User> getUsuario(@Header("Authorization") String auth);
 }

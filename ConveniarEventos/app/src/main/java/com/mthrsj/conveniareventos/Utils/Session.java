@@ -3,6 +3,7 @@ package com.mthrsj.conveniareventos.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.mthrsj.conveniareventos.Utils.API.models.User;
 

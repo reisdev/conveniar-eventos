@@ -104,15 +104,17 @@ public class perfil_frag extends Fragment {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if(response.isSuccessful()){
-                        Log.d("AUTH", response.body().getNome());
+                        //Log.d("AUTH", response.body().getNome());
                         txtNome.setText(response.body().getNome());
                         txtEmail.setText(response.body().getEmail());
+                    } else{
+                        Log.d("AUTH", "AUTH WAS NOT SUCCESSFUL");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-
+                    Log.d("AUTH", "AUTH FAILED");
                 }
             });
 

@@ -68,7 +68,7 @@ public class login extends Fragment {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
-                    Log.d("AUTH", response.body().toString());
+                    Log.d("AUTH", response.body().getAccessToken());
                     session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
 
                     perfil_frag search = new perfil_frag();
