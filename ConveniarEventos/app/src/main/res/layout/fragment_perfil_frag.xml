@@ -11,27 +11,27 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/upper">
+        <TextView
+            android:id="@+id/name"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:background="@color/colorPrimary"
-            android:id="@+id/upper">
-            <TextView
-                android:id="@+id/name"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:id="@+id/email"
-                android:textColor="@color/white"
-                android:layout_below="@+id/name"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-        </RelativeLayout>
+            android:text=""/>
+        <TextView
+            android:id="@+id/email"
+            android:textColor="@color/white"
+            android:layout_below="@+id/name"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

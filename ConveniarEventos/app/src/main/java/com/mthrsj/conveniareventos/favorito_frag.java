@@ -76,6 +76,7 @@ public class favorito_frag extends Fragment {
             db.commitTransaction();*/
             final Config favConfig = db.where(Config.class).equalTo("name", "favorites").findFirst();
             db.commitTransaction();
+            Log.d("FAV", favConfig.getValue());
             favConfig.addChangeListener(new RealmObjectChangeListener<Config>() {
                 @Override
                 public void onChange(Config config, @Nullable ObjectChangeSet changeSet) {
@@ -99,7 +100,7 @@ public class favorito_frag extends Fragment {
             }
             favoriteEventsRequest(query);
         } catch (NullPointerException e) {
-
+            Log.e("FAV"," "+e);
         }
     }
 
