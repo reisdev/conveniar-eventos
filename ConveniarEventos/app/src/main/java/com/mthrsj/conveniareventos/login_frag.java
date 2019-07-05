@@ -2,10 +2,13 @@ package com.mthrsj.conveniareventos;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
@@ -47,11 +50,25 @@ public class login_frag extends Fragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         MaterialButton authButton = getActivity().findViewById(R.id.authenticate);
-        session = new Session(this.getContext());
+        email = getActivity().findViewById(R.id.email_field);
+        password = getActivity().findViewById(R.id.pswd_field);
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 authenticate(v);
+            }
+        });
+        session = new Session(this.getContext());
+
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    authenticate(v);
+                    handled = true;
+                }
+                return handled;
             }
         });
     }
@@ -62,9 +79,6 @@ public class login_frag extends Fragment {
     }
 
     public void authenticate(View v) {
-        email = getActivity().findViewById(R.id.email_field);
-        password = getActivity().findViewById(R.id.pswd_field);
-
         String credentials = Credentials.basic(email.getText().toString(), password.getText().toString());
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apiauth.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
 
