@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
@@ -30,6 +30,7 @@ public class login_frag extends Fragment {
     Session session;
     EditText email;
     EditText password;
+    TextView register;
 
     public static login_frag newInstance() {
         return new login_frag();
@@ -71,6 +72,15 @@ public class login_frag extends Fragment {
                 return handled;
             }
         });
+
+        register = getActivity().findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("REGISTER", "REGISTER CLICKED");
+                ((MainActivity) getActivity()).updatePager(4);
+            }
+        });
     }
 
     @Override
@@ -79,6 +89,9 @@ public class login_frag extends Fragment {
     }
 
     public void authenticate(View v) {
+        email = getActivity().findViewById(R.id.email_field);
+        password = getActivity().findViewById(R.id.pswd_field);
+
         String credentials = Credentials.basic(email.getText().toString(), password.getText().toString());
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apiauth.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
 
