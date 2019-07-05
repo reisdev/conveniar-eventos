@@ -72,7 +72,7 @@ public class singup_frag extends Fragment {
             });
 
         } else {
-            Toast.makeText().show();
+
         }
     }
 
