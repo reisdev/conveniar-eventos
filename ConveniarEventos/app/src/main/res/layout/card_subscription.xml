@@ -40,13 +40,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="100dp"
-                    android:text="dassadasdasdasdasdasdasdasdasda"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -79,19 +79,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/content"
                 android:layout_marginTop="0dp">
-
-                <TextView
-                    android:id="@+id/vacancies"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:maxHeight="100dp"
-                    android:padding="11dp"
-                    android:text="Vagas: "
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
                 <ImageButton
                     android:id="@+id/bshare"
                     style="@style/Widget.AppCompat.ImageButton"

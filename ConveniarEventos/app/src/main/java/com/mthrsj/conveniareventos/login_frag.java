@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
@@ -54,6 +56,11 @@ public class login_frag extends Fragment {
         });
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     public void authenticate(View v) {
         email = getActivity().findViewById(R.id.email_field);
         password = getActivity().findViewById(R.id.pswd_field);
@@ -68,6 +75,7 @@ public class login_frag extends Fragment {
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
                     session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
+                    ((MainActivity) getActivity()).updatePager(3);
                 } else {
                     Log.e("AUTH", "Error" + response.raw().toString());
                 }

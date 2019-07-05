@@ -63,7 +63,9 @@ public class insc_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getSubscriptedEvents();
+        if(session != null)
+            if(session.isLogged())
+                getSubscriptedEvents();
     }
 
     @Override
@@ -79,9 +81,8 @@ public class insc_frag extends Fragment {
     public void getSubscriptedEvents() {
 
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
-        Session s = new Session(getActivity().getApplicationContext());
 
-        final Call<List<Subscription>> events = apiService.getSubscriptions(s.getAuthToken());
+        final Call<List<Subscription>> events = apiService.getSubscriptions(session.getAuthToken());
 
         events.enqueue(new Callback<List<Subscription>>() {
             @Override

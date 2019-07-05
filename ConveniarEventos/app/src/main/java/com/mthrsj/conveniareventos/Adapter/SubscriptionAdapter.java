@@ -84,6 +84,8 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
             });
 
             holder.title.setText(event.getNomeEvento());
+            holder.body.setText("Categoria: " + event.getNomeCategoriaInscricao());
+            holder.status.setText(event.getNomeStatus());
             String body = "";
             holder.body.setText(body);
         }
@@ -159,14 +161,14 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
 
     class EventViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, date, body, vacancies;
+        TextView title, body, vacancies, status;
         ImageButton bshare, bfav;
 
         private EventViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
-            date = itemView.findViewById(R.id.date);
+            status = itemView.findViewById(R.id.status);
             body = itemView.findViewById(R.id.body);
             bshare = itemView.findViewById(R.id.bshare);
             vacancies = itemView.findViewById(R.id.vacancies);

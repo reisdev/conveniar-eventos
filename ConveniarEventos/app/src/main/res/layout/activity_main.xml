@@ -20,6 +20,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginBottom="0dp"
         android:background="@color/white"
+        app:itemIconSize="@dimen/_30sp"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"
         app:labelVisibilityMode="unlabeled"

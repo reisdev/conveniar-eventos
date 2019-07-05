@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     int actual_fragment = 0;
 
     private ViewPager mPager;
-    private PagerAdapter pagerAdapter;
+    private SliderAdapter pagerAdapter;
+    private BottomNavigationView nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +36,9 @@ public class MainActivity extends AppCompatActivity {
         foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
 
         session = new Session(this);
-
-        // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager);
-        pagerAdapter = new SliderAdapter(getSupportFragmentManager(), session);
-        mPager.setAdapter(pagerAdapter);
-
-        final BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setItemIconSize(100);
+        nav = findViewById(R.id.bottom_navigation);
+        //nav.setItemIconSize(100);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,7 +72,56 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        updatePager(1);
         mPager.setCurrentItem(0);
+    }
+
+    public void setView(int position) {
+        if (mPager != null)
+            mPager.setCurrentItem(position);
+    }
+
+    public void updatePager(int position) {
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (positionOffsetPixels == 0)
+                    switch (position) {
+                        case 0:
+                            nav.setSelectedItemId(R.id.frag_inicial);
+                            break;
+                        case 1:
+                            nav.setSelectedItemId(R.id.frag_fav);
+                            break;
+                        case 2:
+                            nav.setSelectedItemId(R.id.frag_ins);
+                            break;
+                        case 3:
+                            nav.setSelectedItemId(R.id.frag_perfil);
+                            break;
+                    }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        pagerAdapter = new SliderAdapter(getSupportFragmentManager());
+        if (session.isLogged())
+            pagerAdapter.changeToAuthenticated();
+        else {
+            pagerAdapter.changeToNotAuthenticated();
+        }
+        mPager.setAdapter(pagerAdapter);
+        mPager.setCurrentItem(position);
+        pagerAdapter.notifyDataSetChanged();
     }
 
     @Override

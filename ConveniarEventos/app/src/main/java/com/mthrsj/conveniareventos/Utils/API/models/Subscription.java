@@ -3,28 +3,31 @@ package com.mthrsj.conveniareventos.Utils.API.models;
 import java.io.Serializable;
 
 public class Subscription implements Serializable {
-    private int CodEventoIsncricao;
+    private int CodEventoInscricao;
     private int CodEvento;
     private String NomeEvento;
+    private String NomeStatus;
+
     private String NomeCategoriaInscricao;
-    private String Isncrito;
+    private String Inscrito;
     private int NumeroInscricao;
 
-    public Subscription(int codEventoIsncricao, int codEvento, String nomeEvento, String nomeCategoriaInscricao, String isncrito, int numeroInscricao) {
-        CodEventoIsncricao = codEventoIsncricao;
+    public Subscription(int codEventoInscricao, int codEvento, String nomeStatus, String nomeEvento, String nomeCategoriaInscricao, String inscrito, int numeroInscricao) {
+        CodEventoInscricao = codEventoInscricao;
         CodEvento = codEvento;
         NomeEvento = nomeEvento;
+        NomeStatus = nomeStatus;
         NomeCategoriaInscricao = nomeCategoriaInscricao;
-        Isncrito = isncrito;
+        Inscrito = inscrito;
         NumeroInscricao = numeroInscricao;
     }
 
-    public int getCodEventoIsncricao() {
-        return CodEventoIsncricao;
+    public int getCodEventoInscricao() {
+        return CodEventoInscricao;
     }
 
     public void setCodEventoIsncricao(int codEventoIsncricao) {
-        CodEventoIsncricao = codEventoIsncricao;
+        CodEventoInscricao = codEventoIsncricao;
     }
 
     public int getCodEvento() {
@@ -51,19 +54,19 @@ public class Subscription implements Serializable {
         NomeCategoriaInscricao = nomeCategoriaInscricao;
     }
 
-    public String getIsncrito() {
-        return Isncrito;
-    }
-
-    public void setIsncrito(String isncrito) {
-        Isncrito = isncrito;
-    }
-
     public int getNumeroInscricao() {
         return NumeroInscricao;
     }
 
     public void setNumeroInscricao(int numeroInscricao) {
         NumeroInscricao = numeroInscricao;
+    }
+
+    public String getNomeStatus() {
+        return NomeStatus;
+    }
+
+    public String getInscrito() {
+        return Inscrito;
     }
 }

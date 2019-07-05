@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
@@ -62,6 +61,7 @@ public class perfil_frag extends Fragment {
                         break;
                     case 3:
                         session.logOut();
+                        ((MainActivity) getActivity()).updatePager(3);
                         break;
                 }
             }
@@ -82,7 +82,8 @@ public class perfil_frag extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            getUserData();
+            if(txtEmail == null && txtEmail == null)
+                getUserData();
         }
     }
 
@@ -95,7 +96,6 @@ public class perfil_frag extends Fragment {
             } else {
                 ConveniarEndpoints apiService = ConveniarAPI.getClient().create(ConveniarEndpoints.class);
                 Call<User> user = apiService.getUsuario(authToken);
-
                 user.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {

@@ -72,9 +72,6 @@ public class inicial_frag extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if(adapter != null) adapter.notifyDataSetChanged();
-        if(isVisibleToUser){
-            getEvents();
-        }
     }
 
     @Override
