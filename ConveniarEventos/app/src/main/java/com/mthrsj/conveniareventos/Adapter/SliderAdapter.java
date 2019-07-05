@@ -11,12 +11,13 @@ import com.mthrsj.conveniareventos.inicial_frag;
 import com.mthrsj.conveniareventos.insc_frag;
 import com.mthrsj.conveniareventos.login_frag;
 import com.mthrsj.conveniareventos.perfil_frag;
+import com.mthrsj.conveniareventos.signup_frag;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SliderAdapter extends FragmentStatePagerAdapter {
-    private static final int NUM_PAGES = 4;
+    private static final int NUM_PAGES = 5;
     private List<Fragment> authenticated = Arrays.asList(new inicial_frag(),
             new favorito_frag(),
             new insc_frag(),
@@ -25,7 +26,8 @@ public class SliderAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> notAuthenticated = Arrays.asList(new inicial_frag(),
             new favorito_frag(),
             new insc_frag(),
-            new login_frag()
+            new login_frag(),
+            new signup_frag()
     );
     private List<Fragment> routes = notAuthenticated;
 

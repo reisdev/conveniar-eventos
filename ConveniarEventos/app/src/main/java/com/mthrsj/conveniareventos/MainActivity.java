@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         foundation = new Foundation((Foundation) it.getSerializableExtra("foundation"));
 
         session = new Session(this);
+
         mPager = findViewById(R.id.pager);
         nav = findViewById(R.id.bottom_navigation);
         //nav.setItemIconSize(100);

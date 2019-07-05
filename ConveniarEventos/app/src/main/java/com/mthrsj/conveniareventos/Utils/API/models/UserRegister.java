@@ -22,6 +22,7 @@ public class UserRegister implements Serializable {
         Nome = nome;
         Senha = senha;
         Email = email;
+        NumRegistro = 123;
     }
 
     public int getNumRegistro() {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
@@ -27,6 +28,7 @@ public class login_frag extends Fragment {
     Session session;
     EditText email;
     EditText password;
+    TextView register;
 
     public static login_frag newInstance() {
         return new login_frag();
@@ -54,6 +56,15 @@ public class login_frag extends Fragment {
                 authenticate(v);
             }
         });
+
+        register = getActivity().findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("REGISTER", "REGISTER CLICKED");
+                ((MainActivity) getActivity()).updatePager(4);
+            }
+        });
     }
 
     @Override
@@ -74,6 +85,7 @@ public class login_frag extends Fragment {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
+                    //Log.d("AUTH", response.body().)
                     session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
                     ((MainActivity) getActivity()).updatePager(3);
                 } else {
