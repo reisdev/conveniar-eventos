@@ -1,5 +1,6 @@
 package com.mthrsj.conveniareventos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +55,8 @@ public class perfil_frag extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        Intent it = new Intent(getContext(), UserData.class);
+                        startActivity(it);
                         break;
                     case 1:
                         break;
