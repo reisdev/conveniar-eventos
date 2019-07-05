@@ -1,6 +1,7 @@
 package com.mthrsj.conveniareventos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,9 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -114,11 +113,11 @@ public class inicial_frag extends Fragment {
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             switch(actionId){
                 case IME_ACTION_SEARCH:
-                    search_frag search = new search_frag();
-                    FragmentManager fm = getFragmentManager();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    fm.beginTransaction().replace(R.id.pager, search.newInstance(fnd, v.getText().toString())).commit();
+                    Intent it = new Intent(getActivity(), Search.class);
+                    it.putExtra("search",v.getText().toString());
+                    startActivity(it);
                     break;
             }
             return false;
