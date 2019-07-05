@@ -51,7 +51,6 @@ public class login_frag extends Fragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         MaterialButton authButton = getActivity().findViewById(R.id.authenticate);
-        email = getActivity().findViewById(R.id.email_field);
         password = getActivity().findViewById(R.id.pswd_field);
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -64,11 +64,10 @@ public class signup_frag extends Fragment {
                         @Override
                         public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
                             if(response.isSuccessful()){
-                                Log.d("REGISTER", response.body().getEmail() + " " + response.body().getNumRegistro());
+                                Toast.makeText(getContext(),"Registrado! Código: " + response.body().getNumRegistro(), Toast.LENGTH_LONG).show();
                                 ((MainActivity) getActivity()).setView(3);
                             }
                         }
-
                         @Override
                         public void onFailure(Call<UserRegister> call, Throwable t) {
 
@@ -76,7 +75,7 @@ public class signup_frag extends Fragment {
                     });
 
                 } else {
-                    Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SliderAdapter extends FragmentStatePagerAdapter {
-    private static final int NUM_PAGES = 5;
     private List<Fragment> authenticated = Arrays.asList(new inicial_frag(),
             new favorito_frag(),
             new insc_frag(),
@@ -53,7 +52,7 @@ public class SliderAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return NUM_PAGES;
+        return routes.size();
     }
 
     @Override
