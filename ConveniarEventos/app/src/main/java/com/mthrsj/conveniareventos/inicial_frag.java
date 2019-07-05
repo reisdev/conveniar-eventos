@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +38,7 @@ public class inicial_frag extends Fragment {
     static Foundation fnd;
     RecyclerView recyclerView;
     EventAdapter adapter;
-    List<Event> eventList;
+    List<Event> eventList = new ArrayList<>();
     private static String[] EventosSearchBar;
 
     public static inicial_frag newInstance(final Foundation f) {
@@ -59,24 +60,33 @@ public class inicial_frag extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        eventList = new ArrayList<>();
-
-        recyclerView = getActivity().findViewById(R.id.recycler_view);
+        recyclerView = getActivity().findViewById(R.id.main_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Log.d("DEB", fnd.getURLS().toString());
-
         getEvents();
-        updateEventsList();
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
+        if(adapter != null) adapter.notifyDataSetChanged();
+        if(isVisibleToUser){
+            getEvents();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fnd = null;
     }
 
     private void updateEventsList() {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
             @Override
@@ -102,10 +112,6 @@ public class inicial_frag extends Fragment {
         }
     }
 
-    public void clicou(View v){
-        Log.d("RECYCLER", "CLICOU");
-    }
-
     private TextView.OnEditorActionListener searchListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -115,8 +121,7 @@ public class inicial_frag extends Fragment {
                     FragmentManager fm = getFragmentManager();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    fm.beginTransaction().replace(R.id.frame_layout, search.newInstance(fnd, v.getText().toString())).commit();
-
+                    fm.beginTransaction().replace(R.id.pager, search.newInstance(fnd, v.getText().toString())).commit();
                     break;
             }
             return false;
@@ -150,17 +155,5 @@ public class inicial_frag extends Fragment {
             }
         });
         ConveniarAPI.closeClient();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        fnd = null;
     }
 }

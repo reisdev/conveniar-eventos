@@ -107,7 +107,7 @@ public class search_frag extends Fragment {
                 inicial_frag frag = new inicial_frag();
                 FragmentManager fm = getFragmentManager();
 
-                fm.beginTransaction().replace(R.id.frame_layout, frag.newInstance(fnd)).commit();
+                //fm.beginTransaction().replace(R.id.frame_layout, frag.newInstance(fnd)).commit();
             }
         });
 
@@ -172,12 +172,6 @@ public class search_frag extends Fragment {
         });
 
         ConveniarAPI.closeClient();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        adapter.notifyDataSetChanged();
     }
 
     @Override

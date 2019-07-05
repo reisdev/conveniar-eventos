@@ -6,14 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mthrsj.conveniareventos.Adapter.EventAdapter;
+import com.mthrsj.conveniareventos.Adapter.SubscriptionAdapter;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.Event;
+import com.mthrsj.conveniareventos.Utils.API.models.Subscription;
 import com.mthrsj.conveniareventos.Utils.Session;
 
 import java.util.ArrayList;
@@ -26,8 +29,9 @@ import retrofit2.Response;
 public class insc_frag extends Fragment {
 
     RecyclerView recyclerView;
-    List<Event> eventList = new ArrayList<>();
-    EventAdapter adapter;
+    List<Subscription> subscriptionList = new ArrayList<>();
+    SubscriptionAdapter adapter;
+    Session session;
 
     public static insc_frag newInstance() {
         insc_frag fragment = new insc_frag();
@@ -42,11 +46,12 @@ public class insc_frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        session = new Session(getActivity().getApplicationContext());
         return inflater.inflate(R.layout.fragment_insc_frag, container, false);
     }
 
     private void updateEventsList() {
-        adapter = new EventAdapter(this.getContext(), eventList);
+        adapter = new SubscriptionAdapter(this.getContext(), subscriptionList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -59,7 +64,16 @@ public class insc_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         getSubscriptedEvents();
-        updateEventsList();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(session != null) {
+            if (isVisibleToUser && session.isLogged()) {
+                getSubscriptedEvents();
+            }
+        }
     }
 
     public void getSubscriptedEvents() {
@@ -67,14 +81,14 @@ public class insc_frag extends Fragment {
         ConveniarEndpoints apiService = ConveniarAPI.getClient("https://apieventos.conveniar.com.br/conveniar/api/").create(ConveniarEndpoints.class);
         Session s = new Session(getActivity().getApplicationContext());
 
-        final Call<List<Event>> events = apiService.getSubscriptions(s.getAuthToken());
+        final Call<List<Subscription>> events = apiService.getSubscriptions(s.getAuthToken());
 
-        events.enqueue(new Callback<List<Event>>() {
+        events.enqueue(new Callback<List<Subscription>>() {
             @Override
-            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+            public void onResponse(Call<List<Subscription>> call, Response<List<Subscription>> response) {
                 if (response.isSuccessful()) {
-                    eventList.clear();
-                    eventList.addAll(response.body());
+                    subscriptionList.clear();
+                    subscriptionList.addAll(response.body());
                     updateEventsList();
                 } else {
                     Log.e("REQ", "Request of events failed: " + response.raw().body());
@@ -82,7 +96,7 @@ public class insc_frag extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Event>> call, Throwable t) {
+            public void onFailure(Call<List<Subscription>> call, Throwable t) {
                 Log.e("REQ", "Request of events failed:" + t.toString());
             }
         });

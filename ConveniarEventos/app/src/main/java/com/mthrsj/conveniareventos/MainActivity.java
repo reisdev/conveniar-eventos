@@ -7,13 +7,13 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mthrsj.conveniareventos.Adapter.SliderAdapter;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 import com.mthrsj.conveniareventos.Utils.Database.Database;
-import com.mthrsj.conveniareventos.Utils.Database.Models.Config;
 import com.mthrsj.conveniareventos.Utils.Session;
 
 import io.realm.Realm;
@@ -21,9 +21,11 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
 
     Foundation foundation;
-    int actual_frag = 1;
-    Boolean new_frag = true;
     Session session;
+    int actual_fragment = 0;
+
+    private ViewPager mPager;
+    private PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,79 +37,63 @@ public class MainActivity extends AppCompatActivity {
 
         session = new Session(this);
 
-        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = findViewById(R.id.pager);
+        pagerAdapter = new SliderAdapter(getSupportFragmentManager(), session);
+        mPager.setAdapter(pagerAdapter);
+
+        final BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setItemIconSize(100);
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFrag = null;
                 switch (item.getItemId()) {
                     case R.id.frag_inicial:
-                        if(actual_frag != 1) {
-                            selectedFrag = inicial_frag.newInstance(foundation);
-                            new_frag = true;
-                        } else new_frag = false;
-                        actual_frag = 1;
+                        if (actual_fragment != 0) {
+                            mPager.setCurrentItem(0);
+                            actual_fragment = 0;
+                        }
                         break;
                     case R.id.frag_fav:
-                        if(actual_frag != 2) {
-                            selectedFrag = favorito_frag.newInstance();
-                            new_frag = true;
-                        } else new_frag = false;
-                        actual_frag = 2;
+                        if (actual_fragment != 1) {
+                            mPager.setCurrentItem(1);
+                            actual_fragment = 1;
+                        }
                         break;
                     case R.id.frag_ins:
-                        if(actual_frag != 3) {
-                            selectedFrag = insc_frag.newInstance();
-                            new_frag = true;
-                        } else new_frag = false;
-                        actual_frag = 3;
+                        if (actual_fragment != 2) {
+                            mPager.setCurrentItem(2);
+                            actual_fragment = 2;
+                        }
                         break;
                     case R.id.frag_perfil:
-                        if(actual_frag != 4){
-                            if(session.isLogged()) selectedFrag = perfil_frag.newInstance();
-                            else selectedFrag = login.newInstance();
-                            new_frag = true;
-                        } else new_frag = false;
-                        actual_frag = 4;
+                        if (actual_fragment != 3) {
+                            mPager.setCurrentItem(3);
+                            actual_fragment = 3;
+                        }
                         break;
                 }
-                if(new_frag == true){
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frame_layout, selectedFrag);
-                    transaction.commit();
-                }
+                nav.setSelectedItemId(actual_fragment);
                 return true;
             }
         });
-        //Define a tela inicial como padrão para mostrar no fragmento
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        inicial_frag frag = new inicial_frag();
-        Bundle extras = new Bundle();
-        extras.putSerializable("foundation", foundation);
-        frag.setArguments(extras);
-        transaction.replace(R.id.frame_layout, frag.newInstance(foundation));
-        transaction.commit();
-        //testRealm(foundation);
-    }
-
-    public void testRealm(Foundation fnd) {
-        Realm db = Database.getInstance();
-        db.beginTransaction();
-        Config actualFoundation = db.createObject(Config.class);
-        actualFoundation.setName("foundation");
-        actualFoundation.setValue(fnd.getURLS().getEventos());
-        final Config managedConfig = db.copyFromRealm(actualFoundation);
-        db.commitTransaction();
-        Log.d("DB", "Created config for foundation");
-        db.beginTransaction();
-        boolean result = db.where(Config.class).equalTo("name", "foundation").findAll().deleteFirstFromRealm();
-        db.commitTransaction();
-        Log.d("DB", "Deleted config for foundation: " + result);
+        mPager.setCurrentItem(0);
     }
 
     @Override
-    public void onDestroy(){
+    public void onBackPressed() {
+        if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         Realm db = Database.getInstance();
         db.close();

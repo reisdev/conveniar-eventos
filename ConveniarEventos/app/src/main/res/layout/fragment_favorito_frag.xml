@@ -29,7 +29,7 @@
             android:layout_below="@id/favorites_header">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/favorite_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"

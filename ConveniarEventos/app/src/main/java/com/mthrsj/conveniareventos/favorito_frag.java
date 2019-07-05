@@ -53,18 +53,26 @@ public class favorito_frag extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        recyclerView = getActivity().findViewById(R.id.recycler_view);
+        recyclerView = getActivity().findViewById(R.id.favorite_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         getFavoriteEvents();
-        updateEventsList();
     }
 
     private void updateEventsList() {
         adapter = new EventAdapter(this.getContext(), eventList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(adapter != null ) adapter.notifyDataSetChanged();
+        if(isVisibleToUser){
+            getFavoriteEvents();
+        }
     }
 
     public void getFavoriteEvents() {
@@ -126,11 +134,5 @@ public class favorito_frag extends Fragment {
             }
         });
         ConveniarAPI.closeClient();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
     }
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.button.MaterialButton;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
@@ -21,14 +20,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class login extends Fragment {
+public class login_frag extends Fragment {
 
     Session session;
     EditText email;
     EditText password;
 
-    public static login newInstance() {
-        return new login();
+    public static login_frag newInstance() {
+        return new login_frag();
     }
 
     @Override
@@ -68,15 +67,9 @@ public class login extends Fragment {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
-                    Log.d("AUTH", response.body().getAccessToken());
                     session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
-
-                    perfil_frag search = new perfil_frag();
-                    FragmentManager fm = getFragmentManager();
-
-                    fm.beginTransaction().replace(R.id.frame_layout, perfil_frag.newInstance()).commit();
                 } else {
-                    Log.e("AUTH","Error"+ response.raw().toString());
+                    Log.e("AUTH", "Error" + response.raw().toString());
                 }
             }
 
