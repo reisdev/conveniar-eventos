@@ -2,10 +2,11 @@ package com.mthrsj.conveniareventos.Utils.API.models;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
-    private int CodPessoaEvento;
+public class UserRegister implements Serializable {
+
     private int NumRegistro;
     private String Nome;
+    private String Senha;
     private String Cracha;
     private String Email;
     private String TelefoneCelular;
@@ -17,30 +18,10 @@ public class User implements Serializable {
     private String Estado;
     private String Pais;
 
-    public User() { }
-
-    public User(int codPessoaEvento, int numRegistro, String nome, String cracha, String email, String telefoneCelular, String telefoneCasa, String telefoneEmpresa, String endereco, String bairro, String cidade, String estado, String pais) {
-        CodPessoaEvento = codPessoaEvento;
-        NumRegistro = numRegistro;
+    public UserRegister(String nome, String senha, String email) {
         Nome = nome;
-        Cracha = cracha;
+        Senha = senha;
         Email = email;
-        TelefoneCelular = telefoneCelular;
-        TelefoneCasa = telefoneCasa;
-        TelefoneEmpresa = telefoneEmpresa;
-        Endereco = endereco;
-        Bairro = bairro;
-        Cidade = cidade;
-        Estado = estado;
-        Pais = pais;
-    }
-
-    public int getCodPessoaEvento() {
-        return CodPessoaEvento;
-    }
-
-    public void setCodPessoaEvento(int codPessoaEvento) {
-        CodPessoaEvento = codPessoaEvento;
     }
 
     public int getNumRegistro() {
@@ -57,6 +38,14 @@ public class User implements Serializable {
 
     public void setNome(String nome) {
         Nome = nome;
+    }
+
+    public String getSenha() {
+        return Senha;
+    }
+
+    public void setSenha(String senha) {
+        Senha = senha;
     }
 
     public String getCracha() {
