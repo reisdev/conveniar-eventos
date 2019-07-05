@@ -4,19 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mthrsj.conveniareventos.Adapter.SliderAdapter;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
+import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
+import com.mthrsj.conveniareventos.Utils.API.models.User;
 import com.mthrsj.conveniareventos.Utils.Database.Database;
 import com.mthrsj.conveniareventos.Utils.Session;
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         mPager.setCurrentItem(0);
     }
 
@@ -97,5 +107,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Realm db = Database.getInstance();
         db.close();
+    }
+
+    public ViewPager getViewPager(){
+        if(mPager == null){
+            mPager = (ViewPager) findViewById(R.id.pager);
+        }
+
+        return mPager;
     }
 }

@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.mthrsj.conveniareventos.Adapter.SliderAdapter;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.User;
@@ -62,6 +65,7 @@ public class perfil_frag extends Fragment {
                         break;
                     case 3:
                         session.logOut();
+                        ((MainActivity)getActivity()).getViewPager().setCurrentItem(3);
                         break;
                 }
             }

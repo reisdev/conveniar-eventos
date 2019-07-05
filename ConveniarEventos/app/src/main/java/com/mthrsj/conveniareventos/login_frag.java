@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
+import com.mthrsj.conveniareventos.Adapter.SliderAdapter;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarAPI;
 import com.mthrsj.conveniareventos.Utils.API.ConveniarEndpoints;
 import com.mthrsj.conveniareventos.Utils.API.models.Auth;
@@ -39,7 +42,9 @@ public class login_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View inf = inflater.inflate(R.layout.fragment_login, container, false);
+
+        return inf;
     }
 
     @Override
@@ -67,7 +72,9 @@ public class login_frag extends Fragment {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.isSuccessful()) {
+                    Log.d("AUTH", "LOGGED IN");
                     session.logIn(email.getText().toString(), password.getText().toString(), response.body().getAccessToken());
+                    ((MainActivity)getActivity()).getViewPager().setCurrentItem(3);
                 } else {
                     Log.e("AUTH", "Error" + response.raw().toString());
                 }

@@ -6,13 +6,18 @@ import com.mthrsj.conveniareventos.Utils.API.models.Event;
 import com.mthrsj.conveniareventos.Utils.API.models.Foundation;
 import com.mthrsj.conveniareventos.Utils.API.models.Subscription;
 import com.mthrsj.conveniareventos.Utils.API.models.User;
+import com.mthrsj.conveniareventos.Utils.API.models.UserRegister;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ConveniarEndpoints {
@@ -47,4 +52,8 @@ public interface ConveniarEndpoints {
     @GET("eventos/inscricoes")
     @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
     Call<List<Subscription>> getSubscriptions(@Header("Authorization") String auth);
+
+    @POST("eventos/usuario")
+    @Headers("X-API-KEY: 7e61b6bb-6841-415f-954e-5e2ba445cc7c")
+    Call<UserRegister> registerUser(@Body UserRegister user);
 }
